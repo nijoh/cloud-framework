@@ -1,0 +1,38 @@
+
+nacos-addrs : 127.0.0.1:8848
+
+nacos-namespace: 5033fcba-72c5-4775-8d3b-3fbd0dc40dab
+server:
+  port: 8081
+
+spring:
+  application:
+    name: cloud-gateway-provider
+
+  cloud:
+    nacos:
+      discovery:
+        group: DEFAULT_GROUP
+        namespace: 5033fcba-72c5-4775-8d3b-3fbd0dc40dab
+      config:
+        server-addr: ${nacos-addrs}
+        name: cloud-gateway.yml
+        group: DEFAULT_GROUP
+        namespace: 5033fcba-72c5-4775-8d3b-3fbd0dc40dab
+        refresh-enabled: true
+
+  config:
+    import:
+      - optional:nacos:cloud-gateway.yml
+      - nacos:cloud-gateway.yml
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - gateway
+
