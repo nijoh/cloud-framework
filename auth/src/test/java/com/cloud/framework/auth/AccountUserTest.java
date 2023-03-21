@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.security.NoSuchAlgorithmException;
-
 @SpringBootTest
 public class AccountUserTest {
     @Autowired
@@ -23,15 +21,15 @@ public class AccountUserTest {
     private AccountUserService accountUserService;
 
     @Test
-    void testInsert() throws NoSuchAlgorithmException {
+    void testInsert(){
         BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
-        AccountUser build = AccountUser.builder()
-                .id(GenerateUtil.generateAccountId())
-                .email("root@163.com")
-                .password(bcryptPasswordEncoder.encode(PasswordEncrypt.encryptSHA256("huqiliang")))
-                .phone("13881844088")
-                .username("root").build();
-        accountUserMapper.insertSelective(build);
+        AccountUser accountUser=new AccountUser();
+        accountUser.setEmail("root@163.com");
+        accountUser.setId(GenerateUtil.generateAccountId());
+        accountUser.setPassword(bcryptPasswordEncoder.encode(PasswordEncrypt.encryptSHA256("nijo_h")));
+        accountUser.setPhone("13881844088");
+        accountUser.setUsername("root");
+        accountUserMapper.insertSelective(accountUser);
     }
 
     @Test
