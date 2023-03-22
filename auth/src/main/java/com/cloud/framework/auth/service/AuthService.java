@@ -1,6 +1,6 @@
 package com.cloud.framework.auth.service;
 
-import com.cloud.framework.model.auth.request.LoginUserRequest;
+import com.cloud.framework.auth.pojo.request.LoginUserRequest;
 
 /**
  * 系统授权Service

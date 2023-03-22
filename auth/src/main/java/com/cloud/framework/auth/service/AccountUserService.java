@@ -1,7 +1,7 @@
 package com.cloud.framework.auth.service;
 
 import com.cloud.framework.auth.pojo.AccountUser;
-import com.cloud.framework.model.auth.request.SaveAccountUserRequest;
+import com.cloud.framework.auth.pojo.request.SaveAccountUserRequest;
 
 
 /**

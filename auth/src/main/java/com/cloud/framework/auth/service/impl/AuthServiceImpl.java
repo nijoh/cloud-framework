@@ -1,7 +1,7 @@
 package com.cloud.framework.auth.service.impl;
 
+import com.cloud.framework.auth.pojo.request.LoginUserRequest;
 import com.cloud.framework.auth.service.AuthService;
-import com.cloud.framework.model.auth.request.LoginUserRequest;
 import com.cloud.framework.auth.utils.JwtUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
 import org.springframework.beans.factory.annotation.Autowired;

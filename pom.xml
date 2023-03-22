@@ -23,6 +23,7 @@
         <spring.security-version>3.0.2</spring.security-version>
         <jwt.version>0.9.1</jwt.version>
         <fastJson.version>2.0.23</fastJson.version>
+        <validation.version>2.0.1.Final</validation.version>
     </properties>
     <packaging>pom</packaging>
     <modules>
@@ -83,6 +84,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastJson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

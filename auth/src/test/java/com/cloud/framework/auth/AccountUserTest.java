@@ -3,8 +3,8 @@ package com.cloud.framework.auth;
 
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.pojo.request.SaveAccountUserRequest;
 import com.cloud.framework.auth.service.AccountUserService;
-import com.cloud.framework.model.auth.request.SaveAccountUserRequest;
 import com.cloud.framework.utils.GenerateUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
 import org.junit.jupiter.api.Test;

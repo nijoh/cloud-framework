@@ -2,6 +2,8 @@ package com.cloud.framework.auth.config;
 
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.service.AccountUserService;
+import com.cloud.framework.model.common.CloudConstant;
+import com.cloud.framework.utils.AsserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,6 +36,7 @@ public class CloudAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         //查找用户
         AccountUser user = userService.findAccountUserByEmail(name);
+        AsserUtil.notNull(user, CloudConstant.AUTH_HMODEL,CloudConstant.NOT_ACCOUNTUSER);
         //比对密码
         boolean loginResult = passwordEncoder.matches(password, user.getPassword());
         if (loginResult) {

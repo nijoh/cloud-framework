@@ -1,11 +1,12 @@
 package com.cloud.framework.auth.controller;
 
+import com.cloud.framework.auth.pojo.request.LoginUserRequest;
 import com.cloud.framework.auth.service.AuthService;
-import com.cloud.framework.model.auth.request.LoginUserRequest;
 import com.cloud.framework.model.common.ApiProcessor;
 import com.cloud.framework.model.common.BusinessTemplate;
 import com.cloud.framework.model.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class AuthController {
      * @return Result<String> 返回结果
      * */
     @PostMapping("/login")
-    public Result<String> login(@RequestBody LoginUserRequest request){
+    public Result<String> login(@RequestBody @Validated LoginUserRequest request){
         Result<String> result=new Result<>();
         ApiProcessor.processor(result, new BusinessTemplate() {
             @Override

@@ -2,10 +2,10 @@ package com.cloud.framework.auth.service.impl;
 
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.pojo.request.SaveAccountUserRequest;
 import com.cloud.framework.auth.service.AccountUserService;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
-import com.cloud.framework.model.auth.request.SaveAccountUserRequest;
 import com.cloud.framework.model.common.CloudConstant;
 import com.cloud.framework.utils.AsserUtil;
 import com.cloud.framework.utils.GenerateUtil;
