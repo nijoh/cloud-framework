@@ -27,17 +27,7 @@ public class StaffInfo implements Serializable {
     /**
      * 账号id
      */
-    private Integer uid;
-
-    /**
-     * 员工邮箱
-     */
-    private String email;
-
-    /**
-     * 员工手机号
-     */
-    private String phone;
+    private String uid;
 
     /**
      * 员工姓名
@@ -50,14 +40,14 @@ public class StaffInfo implements Serializable {
     private String nickname;
 
     /**
-     * 员工头像(相对路径)
+     * 员工头像
      */
     private String avatar;
 
     /**
      * 员工性别
      */
-    private String gender;
+    private Character gender;
 
     /**
      * 创建时间

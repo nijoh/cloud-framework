@@ -2,13 +2,12 @@ package com.cloud.framework.auth.config;
 
 import com.alibaba.fastjson.JSON;
 import com.cloud.framework.auth.pojo.AccountUser;
-import com.cloud.framework.auth.service.AccountUserService;
+import com.cloud.framework.auth.utils.JwtUtil;
+import com.cloud.framework.cloudredis.config.RedisUtil;
 import com.cloud.framework.model.common.CloudConstant;
 import com.cloud.framework.model.common.HttpEnum;
 import com.cloud.framework.model.common.Result;
-import com.cloud.framework.auth.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +29,7 @@ import java.util.Collections;
 @Component
 public class TokenPerRequestFilter extends OncePerRequestFilter {
     @Autowired
-    private AccountUserService userService;
+    private RedisUtil redisUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -41,19 +40,17 @@ public class TokenPerRequestFilter extends OncePerRequestFilter {
             try {
                 Claims claims = JwtUtil.parseJWT(token);
                 //JWT中获取用户信息
-                String userName = claims.getSubject();
+                String email = claims.getSubject();
                 //查询用户
-                AccountUser accountUser = userService.findAccountUserByEmail(userName);
+                AccountUser accountUser=(AccountUser)redisUtil.get(email);
+                if(null == accountUser){
+                    throw new Exception("Redis 用户过期");
+                }
                 //存放用户信息、空权限
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(accountUser.getEmail(), null, Collections.emptyList());
                 //放入上下文
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-            } catch (ExpiredJwtException exception) {
-                //Token过期
-                this.WriteJSON(response,new Result<>().fail(HttpEnum.UNAUTHORIZED.getCode(),HttpEnum.UNAUTHORIZED.getDesc()));
-                return;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 //非法Token
                 e.printStackTrace();
                 this.WriteJSON(response,new Result<>().fail(HttpEnum.UNAUTHORIZED.getCode(),HttpEnum.UNAUTHORIZED.getDesc()));

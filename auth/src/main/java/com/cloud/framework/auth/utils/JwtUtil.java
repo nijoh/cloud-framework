@@ -39,6 +39,18 @@ public class JwtUtil {
         JwtUtil.ISS = ISS;
     }
 
+    public static String getSecretKey() {
+        return SECRET_KEY;
+    }
+
+    public static Long getExpirationTime() {
+        return EXPIRATION_TIME;
+    }
+
+    public static String getISS() {
+        return ISS;
+    }
+
     /**
      * 生成JWT带超时间
      *

@@ -57,11 +57,6 @@ public class AuthMsMenu implements Serializable {
     private LocalDateTime createAt;
 
     /**
-     * 是否展示菜单
-     */
-    private String isShow;
-
-    /**
      * 创建人staff_id
      */
     private Integer createBy;

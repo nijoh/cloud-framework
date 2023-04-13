@@ -3,7 +3,7 @@ package com.cloud.framework.auth;
 
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
-import com.cloud.framework.auth.pojo.request.SaveAccountUserRequest;
+import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AccountUserService;
 import com.cloud.framework.utils.GenerateUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
@@ -26,19 +26,21 @@ public class AccountUserTest {
         AccountUser accountUser=new AccountUser();
         accountUser.setEmail("root@163.com");
         accountUser.setId(GenerateUtil.generateAccountId());
-        accountUser.setPassword(bcryptPasswordEncoder.encode(PasswordEncrypt.encryptSHA256("nijo_h")));
-        accountUser.setPhone("13881844088");
-        accountUser.setUsername("root");
+        accountUser.setPassword(bcryptPasswordEncoder.encode(PasswordEncrypt.encryptSHA256("root")));
+        accountUser.setPhone("88888888");
+        accountUser.setUsername("超级管理");
         accountUserMapper.insertSelective(accountUser);
     }
 
     @Test
     void testSaveAccountUser(){
-        SaveAccountUserRequest request =new SaveAccountUserRequest();
-        request.setPhone("13881844089");
-        request.setEmail("root@164.com");
-        request.setPassword("123124");
-        request.setUsername("test");
+        RegistAccountUserRequest request =new RegistAccountUserRequest();
+        request.setEmail("root@163.com");
+        request.setPassword("root");
+        request.setPhone("88888888");
+        request.setUsername("超级管理");
+        request.setName("超级管理");
+        request.setGender('1');
         accountUserService.saveAccountUser(request);
     }
 

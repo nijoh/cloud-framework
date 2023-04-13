@@ -7,6 +7,15 @@ spring:
   #2.6 有循环依赖无法启动配置方式
   main:
     allow-circular-references: true
+  #提成公用
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    lettuce:
+      pool:
+        max-idle: 8
+        min-idle: 4
 mybatis:
   mapper-locations: classpath:mapper/*/*.xml
   configuration:

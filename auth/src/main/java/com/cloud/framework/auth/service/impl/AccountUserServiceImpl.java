@@ -2,7 +2,7 @@ package com.cloud.framework.auth.service.impl;
 
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
-import com.cloud.framework.auth.pojo.request.SaveAccountUserRequest;
+import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AccountUserService;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
@@ -39,10 +39,10 @@ public class AccountUserServiceImpl implements AccountUserService {
     }
 
     /**
-     * @see com.cloud.framework.auth.service.AccountUserService#saveAccountUser(SaveAccountUserRequest)
+     * @see com.cloud.framework.auth.service.AccountUserService#saveAccountUser(RegistAccountUserRequest)
      */
     @Override
-    public void saveAccountUser(SaveAccountUserRequest request) {
+    public void saveAccountUser(RegistAccountUserRequest request) {
         AccountUser accountUser = this.buildConverDO(request);
         transactionService.processor(new TransactionProcessor() {
             @Override
@@ -53,7 +53,7 @@ public class AccountUserServiceImpl implements AccountUserService {
         });
     }
 
-    private AccountUser buildConverDO(SaveAccountUserRequest request) {
+    private AccountUser buildConverDO(RegistAccountUserRequest request) {
         BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
         AccountUser accountUser = new AccountUser();
         BeanUtils.copyProperties(request, accountUser);

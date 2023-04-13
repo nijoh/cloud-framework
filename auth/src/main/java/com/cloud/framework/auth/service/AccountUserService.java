@@ -1,7 +1,7 @@
 package com.cloud.framework.auth.service;
 
 import com.cloud.framework.auth.pojo.AccountUser;
-import com.cloud.framework.auth.pojo.request.SaveAccountUserRequest;
+import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 
 
 /**
@@ -22,5 +22,5 @@ public interface AccountUserService {
      *
      * @param request 请求参数
      */
-    void saveAccountUser(SaveAccountUserRequest request);
+    void saveAccountUser(RegistAccountUserRequest request);
 }

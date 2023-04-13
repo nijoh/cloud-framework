@@ -12,6 +12,9 @@ public class CloudConstant {
     //response返回类型
     public static String RESPONSE_CONTENTTYPE = "application/json;charset=UTF-8";
 
+    /********************************* DB错误   **********************************/
+    public static String DB_INSERT_ERROR = "添加数据失败";
+
     /********************************* 系统模版   **********************************/
     //auth模块
     public static String AUTH_HMODEL = "auth_model";

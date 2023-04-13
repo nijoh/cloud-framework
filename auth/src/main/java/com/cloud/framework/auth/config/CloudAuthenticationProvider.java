@@ -1,7 +1,10 @@
 package com.cloud.framework.auth.config;
 
+import com.alibaba.fastjson2.JSON;
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.service.AccountUserService;
+import com.cloud.framework.auth.utils.JwtUtil;
+import com.cloud.framework.cloudredis.config.RedisUtil;
 import com.cloud.framework.model.common.CloudConstant;
 import com.cloud.framework.utils.AsserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,10 @@ public class CloudAuthenticationProvider implements AuthenticationProvider {
     private AccountUserService userService;
 
     @Autowired
-    public PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 验证登陆认证逻辑
@@ -40,6 +46,8 @@ public class CloudAuthenticationProvider implements AuthenticationProvider {
         //比对密码
         boolean loginResult = passwordEncoder.matches(password, user.getPassword());
         if (loginResult) {
+            //存Redis 过期时间和JWT时间一致
+            redisUtil.set(user.getEmail(), JSON.toJSONString(user), JwtUtil.getExpirationTime());
             return new UsernamePasswordAuthenticationToken(user.getEmail(), null, Collections.emptyList());
         }
         throw new AuthenticationException("认证失败") {

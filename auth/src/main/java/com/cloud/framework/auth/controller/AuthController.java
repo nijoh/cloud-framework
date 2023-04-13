@@ -1,6 +1,7 @@
 package com.cloud.framework.auth.controller;
 
 import com.cloud.framework.auth.pojo.request.LoginUserRequest;
+import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AuthService;
 import com.cloud.framework.model.common.ApiProcessor;
 import com.cloud.framework.model.common.BusinessTemplate;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    //系统授权Service
     @Autowired
     private AuthService authService;
 
@@ -34,6 +36,21 @@ public class AuthController {
             public void processor() {
                 String token = authService.login(request);
                 result.setData(token);
+            }
+        });
+        return result;
+    }
+
+    /**
+     * 用户注册
+     * */
+    @PostMapping("/regist")
+    public Result regist(@RequestBody @Validated RegistAccountUserRequest request){
+        Result result=new Result<>();
+        ApiProcessor.processor(result, new BusinessTemplate() {
+            @Override
+            public void processor() {
+                authService.regist(request);
             }
         });
         return result;
