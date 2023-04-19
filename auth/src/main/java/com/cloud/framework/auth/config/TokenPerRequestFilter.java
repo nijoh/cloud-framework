@@ -2,6 +2,7 @@ package com.cloud.framework.auth.config;
 
 import com.alibaba.fastjson.JSON;
 import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.service.AccountUserService;
 import com.cloud.framework.auth.utils.JwtUtil;
 import com.cloud.framework.cloudredis.config.RedisUtil;
 import com.cloud.framework.model.common.CloudConstant;
@@ -25,11 +26,14 @@ import java.util.Collections;
 
 /**
  * Security Token拦截器
- * */
+ */
 @Component
 public class TokenPerRequestFilter extends OncePerRequestFilter {
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private AccountUserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -42,10 +46,7 @@ public class TokenPerRequestFilter extends OncePerRequestFilter {
                 //JWT中获取用户信息
                 String email = claims.getSubject();
                 //查询用户
-                AccountUser accountUser=(AccountUser)redisUtil.get(email);
-                if(null == accountUser){
-                    throw new Exception("Redis 用户过期");
-                }
+                AccountUser accountUser = userService.findAccountUserByEmail(email);
                 //存放用户信息、空权限
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(accountUser.getEmail(), null, Collections.emptyList());
                 //放入上下文
@@ -53,7 +54,7 @@ public class TokenPerRequestFilter extends OncePerRequestFilter {
             } catch (Throwable e) {
                 //非法Token
                 e.printStackTrace();
-                this.WriteJSON(response,new Result<>().fail(HttpEnum.UNAUTHORIZED.getCode(),HttpEnum.UNAUTHORIZED.getDesc()));
+                this.WriteJSON(response, new Result<>().fail(HttpEnum.UNAUTHORIZED.getCode(), HttpEnum.UNAUTHORIZED.getDesc()));
                 return;
             }
         }

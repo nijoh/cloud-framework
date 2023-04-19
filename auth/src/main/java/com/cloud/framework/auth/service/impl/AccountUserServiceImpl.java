@@ -12,6 +12,7 @@ import com.cloud.framework.utils.GenerateUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class AccountUserServiceImpl implements AccountUserService {
      * @see com.cloud.framework.auth.service.AccountUserService#findAccountUserByEmail(String)
      */
     @Override
+    @Cacheable(cacheNames="UserInfo",key = "#email")
     public AccountUser findAccountUserByEmail(String email) {
         AccountUser accountUser = new AccountUser();
         accountUser.setEmail(email);
