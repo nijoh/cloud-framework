@@ -1,4 +1,4 @@
-package com.cloud.framework.model.common;
+package com.cloud.framework.model.common.base;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

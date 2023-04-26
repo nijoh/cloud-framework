@@ -3,7 +3,7 @@ package com.cloud.framework.auth.config;
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.service.AccountUserService;
 import com.cloud.framework.cloudredis.config.RedisUtil;
-import com.cloud.framework.model.common.CloudConstant;
+import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.utils.AsserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -44,7 +44,7 @@ public class CloudAuthenticationProvider implements AuthenticationProvider {
         //比对密码
         boolean loginResult = passwordEncoder.matches(password, user.getPassword());
         if (loginResult) {
-            return new UsernamePasswordAuthenticationToken(user.getEmail(), null, Collections.emptyList());
+            return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
         }
         throw new AuthenticationException("认证失败") {
         };

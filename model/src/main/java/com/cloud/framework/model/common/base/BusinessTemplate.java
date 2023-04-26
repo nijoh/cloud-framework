@@ -1,4 +1,4 @@
-package com.cloud.framework.model.common;
+package com.cloud.framework.model.common.base;
 
 /**
  * 业务模版执行通用方法

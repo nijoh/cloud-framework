@@ -1,7 +1,7 @@
 package com.cloud.framework.auth.pojo;
 
-import com.cloud.framework.model.common.CreateTime;
-import com.cloud.framework.model.common.UpdateTime;
+import com.cloud.framework.model.common.base.CreateTime;
+import com.cloud.framework.model.common.base.UpdateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,26 +38,23 @@ public class AuthRole implements Serializable {
      * 创建时间
      */
     @CreateTime
-    private LocalDateTime createAt;
+    private LocalDateTime createTime;
 
     /**
-     * 创建人staff_id
+     * 操作人
      */
-    private Integer createBy;
+    private String operator;
 
     /**
      * 更新时间
      */
     @UpdateTime
-    private LocalDateTime updateAt;
+    private LocalDateTime updateTime;
 
     /**
-     * 修改人staff_id
-     */
-    private Integer updateBy;
-
-    /**
-     * 状态 1:enable, 0:disable, -1:deleted
+     * 状态 1:启用, 0:关闭, -1:删除标识
+     *
+     * @see com.cloud.framework.model.common.enums.BaseStatus
      */
     private Boolean status;
 }

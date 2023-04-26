@@ -1,11 +1,14 @@
-package com.cloud.framework.model.common;
+package com.cloud.framework.model.common.base;
+
+import com.cloud.framework.model.common.result.BaseResult;
+import com.cloud.framework.model.common.enums.HttpEnum;
 
 /**
  * 业务逻辑处理模版
  * */
 public class ApiProcessor {
 
-    public static <T extends Result> T processor(T result, BusinessTemplate template){
+    public static <T extends BaseResult> T processor(T result, BusinessTemplate template){
         try {
             //校验参数
             template.checkParam();

@@ -1,7 +1,7 @@
 package com.cloud.framework.auth.pojo;
 
-import com.cloud.framework.model.common.CreateTime;
-import com.cloud.framework.model.common.UpdateTime;
+import com.cloud.framework.model.common.base.CreateTime;
+import com.cloud.framework.model.common.base.UpdateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,7 +42,7 @@ public class StaffInfo implements Serializable {
     /**
      * 员工头像
      */
-    private String avatar;
+    private String staffImage;
 
     /**
      * 员工性别
@@ -53,11 +53,16 @@ public class StaffInfo implements Serializable {
      * 创建时间
      */
     @CreateTime
-    private LocalDateTime createAt;
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
     @UpdateTime
-    private LocalDateTime updateAt;
+    private LocalDateTime updateTime;
+
+    /**
+     * 操作人
+     */
+    private String operate;
 }

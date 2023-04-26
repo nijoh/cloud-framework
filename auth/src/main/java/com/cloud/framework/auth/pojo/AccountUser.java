@@ -1,7 +1,7 @@
 package com.cloud.framework.auth.pojo;
 
-import com.cloud.framework.model.common.CreateTime;
-import com.cloud.framework.model.common.UpdateTime;
+import com.cloud.framework.model.common.base.CreateTime;
+import com.cloud.framework.model.common.base.UpdateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,31 +48,33 @@ public class AccountUser implements Serializable {
      * 创建时间
      */
     @CreateTime
-    private LocalDateTime createAt;
+    private LocalDateTime createTime;
 
     /**
-     * 创建ip
+     * 更新时间
      */
-    private String createIpAt;
+    @UpdateTime
+    private LocalDateTime updateTime;
 
     /**
      * 最后一次登陆时间
      */
     @UpdateTime
-    private LocalDateTime lastLoginAt;
+    private LocalDateTime lastLoginTime;
 
     /**
      * 最后一次登陆ip
      */
-    private String lastLoginIpAt;
+    private String loginIp;
 
     /**
-     * 登录次数
-     */
-    private Integer loginTimes;
-
-    /**
-     * 状态 1:enable, 0:disable, -1:deleted
+     * @see com.cloud.framework.model.common.enums.BaseStatus
+     * 状态 1:启用, 0:关闭, -1:删除标识
      */
     private Boolean status;
+
+    /**
+     * 操作人
+     */
+    private String operate;
 }

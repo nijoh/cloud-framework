@@ -3,9 +3,9 @@ package com.cloud.framework.auth.controller;
 import com.cloud.framework.auth.pojo.request.LoginUserRequest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AuthService;
-import com.cloud.framework.model.common.ApiProcessor;
-import com.cloud.framework.model.common.BusinessTemplate;
-import com.cloud.framework.model.common.Result;
+import com.cloud.framework.model.common.base.ApiProcessor;
+import com.cloud.framework.model.common.base.BusinessTemplate;
+import com.cloud.framework.model.common.result.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,30 +29,30 @@ public class AuthController {
      * @return Result<String> 返回结果
      * */
     @PostMapping("/login")
-    public Result<String> login(@RequestBody @Validated LoginUserRequest request){
-        Result<String> result=new Result<>();
-        ApiProcessor.processor(result, new BusinessTemplate() {
+    public BaseResult<String> login(@RequestBody @Validated LoginUserRequest request){
+        BaseResult<String> baseResult =new BaseResult<>();
+        ApiProcessor.processor(baseResult, new BusinessTemplate() {
             @Override
             public void processor() {
                 String token = authService.login(request);
-                result.setData(token);
+                baseResult.setData(token);
             }
         });
-        return result;
+        return baseResult;
     }
 
     /**
      * 用户注册
      * */
     @PostMapping("/regist")
-    public Result regist(@RequestBody @Validated RegistAccountUserRequest request){
-        Result result=new Result<>();
-        ApiProcessor.processor(result, new BusinessTemplate() {
+    public BaseResult regist(@RequestBody @Validated RegistAccountUserRequest request){
+        BaseResult baseResult =new BaseResult<>();
+        ApiProcessor.processor(baseResult, new BusinessTemplate() {
             @Override
             public void processor() {
                 authService.regist(request);
             }
         });
-        return result;
+        return baseResult;
     }
 }

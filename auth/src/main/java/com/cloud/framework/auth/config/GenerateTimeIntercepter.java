@@ -1,7 +1,7 @@
 package com.cloud.framework.auth.config;
 
-import com.cloud.framework.model.common.CreateTime;
-import com.cloud.framework.model.common.UpdateTime;
+import com.cloud.framework.model.common.base.CreateTime;
+import com.cloud.framework.model.common.base.UpdateTime;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;

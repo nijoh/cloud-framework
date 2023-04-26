@@ -1,7 +1,7 @@
 package com.cloud.framework.auth.config;
 
-import com.cloud.framework.model.common.HttpEnum;
-import com.cloud.framework.model.common.Result;
+import com.cloud.framework.model.common.enums.HttpEnum;
+import com.cloud.framework.model.common.result.BaseResult;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,7 +24,7 @@ public class WebExceptionHandler {
      * @return Result 异常提示
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Result<String> MethodArgumentNotValidException(BindException exception) {
-        return new Result().fail(HttpEnum.BUSINESS.getCode(),exception.getFieldError().getDefaultMessage());
+    public BaseResult<String> MethodArgumentNotValidException(BindException exception) {
+        return new BaseResult().fail(HttpEnum.BUSINESS.getCode(),exception.getFieldError().getDefaultMessage());
     }
 }

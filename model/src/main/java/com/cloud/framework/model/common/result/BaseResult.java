@@ -1,4 +1,4 @@
-package com.cloud.framework.model.common;
+package com.cloud.framework.model.common.result;
 
 
 import java.io.Serializable;
@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 统一返回包装类
  */
-public class Result<T> implements Serializable {
+public class BaseResult<T> implements Serializable {
     //是否成功
     private Boolean success;
     //状态码
@@ -16,11 +16,11 @@ public class Result<T> implements Serializable {
     //数据
     private T data;
 
-    public Result() {
+    public BaseResult() {
     }
 
     //自定义返回结果的构造方法
-    public Result(Boolean success, Integer code, String msg, T data) {
+    public BaseResult(Boolean success, Integer code, String msg, T data) {
         this.success = success;
         this.code = code;
         this.msg = msg;
@@ -29,14 +29,14 @@ public class Result<T> implements Serializable {
     }
 
     //成功
-    public Result success() {
+    public BaseResult success() {
         this.success = true;
         this.code = 200;
         this.msg="成功";
         return this;
     }
 
-    public Result success(T data) {
+    public BaseResult success(T data) {
         this.success = true;
         this.code = 200;
         this.data = data;
@@ -45,7 +45,7 @@ public class Result<T> implements Serializable {
     }
 
     //失败
-    public Result fail(Integer code, String msg) {
+    public BaseResult fail(Integer code, String msg) {
         this.msg = msg;
         this.code = code;
         this.success = false;

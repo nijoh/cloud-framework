@@ -1,8 +1,11 @@
-package com.cloud.framework.model.common;
+package com.cloud.framework.model.common.enums;
+
+import lombok.Getter;
 
 /**
  * 异常枚举定义
  * */
+@Getter
 public enum HttpEnum {
     SUCCESS(200,"成功"),
     UNAUTHORIZED(401, "登录凭证过期!"),
@@ -15,22 +18,6 @@ public enum HttpEnum {
 
     HttpEnum(Integer code, String desc) {
         this.code = code;
-        this.desc = desc;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
         this.desc = desc;
     }
 }

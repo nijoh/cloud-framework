@@ -5,9 +5,9 @@ import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.service.AccountUserService;
 import com.cloud.framework.auth.utils.JwtUtil;
 import com.cloud.framework.cloudredis.config.RedisUtil;
-import com.cloud.framework.model.common.CloudConstant;
-import com.cloud.framework.model.common.HttpEnum;
-import com.cloud.framework.model.common.Result;
+import com.cloud.framework.model.common.constant.CloudConstant;
+import com.cloud.framework.model.common.enums.HttpEnum;
+import com.cloud.framework.model.common.result.BaseResult;
 import io.jsonwebtoken.Claims;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +48,13 @@ public class TokenPerRequestFilter extends OncePerRequestFilter {
                 //查询用户
                 AccountUser accountUser = userService.findAccountUserByEmail(email);
                 //存放用户信息、空权限
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(accountUser.getEmail(), null, Collections.emptyList());
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(accountUser, null, Collections.emptyList());
                 //放入上下文
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } catch (Throwable e) {
                 //非法Token
                 e.printStackTrace();
-                this.WriteJSON(response, new Result<>().fail(HttpEnum.UNAUTHORIZED.getCode(), HttpEnum.UNAUTHORIZED.getDesc()));
+                this.WriteJSON(response, new BaseResult<>().fail(HttpEnum.UNAUTHORIZED.getCode(), HttpEnum.UNAUTHORIZED.getDesc()));
                 return;
             }
         }

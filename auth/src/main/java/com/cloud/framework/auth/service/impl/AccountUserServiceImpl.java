@@ -6,7 +6,7 @@ import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AccountUserService;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
-import com.cloud.framework.model.common.CloudConstant;
+import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.utils.AsserUtil;
 import com.cloud.framework.utils.GenerateUtil;
 import com.cloud.framework.utils.PasswordEncrypt;

@@ -1,4 +1,4 @@
-package com.cloud.framework.model.common;
+package com.cloud.framework.model.common.constant;
 
 /**
  * 常量定义

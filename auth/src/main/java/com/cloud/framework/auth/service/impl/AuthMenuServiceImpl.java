@@ -6,7 +6,8 @@ import com.cloud.framework.auth.pojo.request.AddAuthMenuRequest;
 import com.cloud.framework.auth.service.AuthMenuService;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
-import com.cloud.framework.model.common.CloudConstant;
+import com.cloud.framework.auth.utils.UserInfoUtil;
+import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.utils.AsserUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,8 @@ public class AuthMenuServiceImpl implements AuthMenuService {
         AuthMsMenu authMsMenu=new AuthMsMenu();
         BeanUtils.copyProperties(request,authMsMenu);
         //todo 获取当前系统ms_id、当前登录的操作人
+        authMsMenu.setOperator(UserInfoUtil.getUser().getId());
         authMsMenu.setMsId(1);
-        authMsMenu.setUpdateBy(1);
         return authMsMenu;
     }
 }
