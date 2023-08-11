@@ -186,7 +186,7 @@ public class RedisUtil {
      * @return
      */
     public Object pop(String key) {
-        return redisTemplate.opsForSet().pop("setValue");
+        return redisTemplate.opsForSet().pop(key);
     }
 
     /**
@@ -265,7 +265,7 @@ public class RedisUtil {
      * @param map 键
      * @return
      */
-    public void add(String key, Map<String, String> map) {
+    public void add(String key, Map<String, Object> map) {
         redisTemplate.opsForHash().putAll(key, map);
     }
 
@@ -298,7 +298,7 @@ public class RedisUtil {
      * @return
      */
     public String getMapString(String key, String key2) {
-        return redisTemplate.opsForHash().get("map1", "key1").toString();
+        return redisTemplate.opsForHash().get(key, key2).toString();
     }
 
     /**
@@ -309,7 +309,7 @@ public class RedisUtil {
      * @return
      */
     public Integer getMapInt(String key, String key2) {
-        return (Integer) redisTemplate.opsForHash().get("map1", "key1");
+        return (Integer) redisTemplate.opsForHash().get(key, key2);
     }
 
     /**
@@ -398,7 +398,7 @@ public class RedisUtil {
      * @return
      */
     public Object index(String key, long index) {
-        return redisTemplate.opsForList().index("list", 1);
+        return redisTemplate.opsForList().index(key, index);
     }
 
     /**
@@ -434,7 +434,6 @@ public class RedisUtil {
      * @return
      */
     public void leftPushAll(String key, String... values) {
-//        redisTemplate.opsForList().leftPushAll(key,"w","x","y");
         redisTemplate.opsForList().leftPushAll(key, values);
     }
 
@@ -457,7 +456,6 @@ public class RedisUtil {
      * @return
      */
     public void rightPushAll(String key, String... values) {
-        //redisTemplate.opsForList().leftPushAll(key,"w","x","y");
         redisTemplate.opsForList().rightPushAll(key, values);
     }
 
