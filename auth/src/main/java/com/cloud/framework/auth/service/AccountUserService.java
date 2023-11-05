@@ -1,7 +1,9 @@
 package com.cloud.framework.auth.service;
 
 import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.pojo.request.QueryUserReuqest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
+import com.github.pagehelper.PageInfo;
 
 
 /**
@@ -23,4 +25,12 @@ public interface AccountUserService {
      * @param request 请求参数
      */
     void saveAccountUser(RegistAccountUserRequest request);
+
+    /**
+     * 分页查询用户信息
+     * @param queryUserReuqest 查询条件
+     * @return
+     */
+    PageInfo queryPage(QueryUserReuqest queryUserReuqest);
+
 }

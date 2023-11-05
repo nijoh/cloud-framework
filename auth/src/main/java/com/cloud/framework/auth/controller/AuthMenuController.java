@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthMenuController {
     @Autowired
     private AuthMenuService authMenuService;
+
     /**
      * 新增菜单
      * */

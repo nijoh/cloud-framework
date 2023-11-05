@@ -76,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //所有请求验证接口并关闭CSRF、放行/auth/login 其余全部请求拦截
         http.cors().and().csrf().disable()
                         .authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/login","/accountUser/queryPage","/auth/regist").permitAll()
                 .anyRequest().authenticated()
                 .and().logout().permitAll() //允许所有用户登出
                 .and().httpBasic()

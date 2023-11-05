@@ -2,7 +2,9 @@ package com.cloud.framework.auth.pojo;
 
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Id;
@@ -17,6 +19,8 @@ import java.time.LocalDateTime;
 @Table(name = "account_user")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AccountUser implements Serializable {
     /**
      * 账号id
@@ -69,9 +73,8 @@ public class AccountUser implements Serializable {
 
     /**
      * @see com.cloud.framework.model.common.enums.BaseStatus
-     * 状态 1:启用, 0:关闭, -1:删除标识
      */
-    private Boolean status;
+    private String status;
 
     /**
      * 操作人

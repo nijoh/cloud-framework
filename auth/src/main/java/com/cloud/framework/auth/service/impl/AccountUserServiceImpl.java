@@ -2,19 +2,23 @@ package com.cloud.framework.auth.service.impl;
 
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.pojo.request.QueryUserReuqest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AccountUserService;
+import com.cloud.framework.auth.utils.AccountUserConvert;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
 import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.utils.AsserUtil;
-import com.cloud.framework.utils.GenerateUtil;
-import com.cloud.framework.utils.PasswordEncrypt;
-import org.springframework.beans.BeanUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 /**
  * 账户信息ServiceImpl
@@ -45,7 +49,7 @@ public class AccountUserServiceImpl implements AccountUserService {
      */
     @Override
     public void saveAccountUser(RegistAccountUserRequest request) {
-        AccountUser accountUser = this.buildConverDO(request);
+        AccountUser accountUser = AccountUserConvert.buildConverDOFromRequst(request);
         transactionService.processor(new TransactionProcessor() {
             @Override
             public void processor() {
@@ -55,12 +59,37 @@ public class AccountUserServiceImpl implements AccountUserService {
         });
     }
 
-    private AccountUser buildConverDO(RegistAccountUserRequest request) {
-        BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
-        AccountUser accountUser = new AccountUser();
-        BeanUtils.copyProperties(request, accountUser);
-        accountUser.setId(GenerateUtil.generateAccountId());
-        accountUser.setPassword(bcryptPasswordEncoder.encode(PasswordEncrypt.encryptSHA256(request.getPassword())));
-        return accountUser;
+
+    /**
+     * @see AccountUserService#queryPage(QueryUserReuqest)
+     */
+    @Override
+    public PageInfo queryPage(QueryUserReuqest queryUserReuqest) {
+        //设置分页
+        PageHelper.startPage(queryUserReuqest.getPageNum(),queryUserReuqest.getPageSize());
+        //条件查询
+        List<AccountUser> accountUsers = accountUserMapper.selectByExample(createExample(queryUserReuqest));
+        PageInfo accountUserPageInfo = new PageInfo<>(accountUsers);
+        accountUserPageInfo.setList(AccountUserConvert.converToDTOFromList(accountUsers));
+        return accountUserPageInfo;
     }
+
+    //条件构造
+    public Example createExample(QueryUserReuqest queryUserReuqest){
+        Example example=new Example(AccountUser.class);
+        Example.Criteria criteria = example.createCriteria();
+        if(queryUserReuqest!=null){
+            // 用户名
+            if(StringUtils.isNotBlank(queryUserReuqest.getUsername())){
+                criteria.andEqualTo("username",queryUserReuqest.getUsername());
+            }
+            if(StringUtils.isNotBlank(queryUserReuqest.getCreateTime())){
+                criteria.andEqualTo("createTime",queryUserReuqest.getCreateTime());
+            }
+
+
+        }
+        return example;
+    }
+
 }

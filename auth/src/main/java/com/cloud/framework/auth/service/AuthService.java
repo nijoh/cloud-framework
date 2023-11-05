@@ -21,5 +21,4 @@ public interface AuthService {
      * @param request 请求参数
      */
     void regist(RegistAccountUserRequest request);
-
 }

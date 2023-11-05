@@ -9,13 +9,13 @@ import lombok.Getter;
  */
 @Getter
 public enum BaseStatus {
-    ENABLE(1,"开启"),
-    DISABLE(0,"关闭"),
-    DELETED(-1,"删除");
-    private Integer code;
+    NORMAL("NORMAL","正常"),
+    FREEZE("FREEZE","冻结"),
+    DELETED("DELETED","删除");
+    private String code;
     private String desc;
 
-    BaseStatus(Integer code, String desc) {
+    BaseStatus(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }
