@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.weekend.WeekendSqls;
 
 import java.util.List;
 
@@ -74,22 +75,24 @@ public class AccountUserServiceImpl implements AccountUserService {
         return accountUserPageInfo;
     }
 
-    //条件构造
+    /**
+     * 条件构造
+     * @param queryUserReuqest 请求
+     * @return
+     */
     public Example createExample(QueryUserReuqest queryUserReuqest){
-        Example example=new Example(AccountUser.class);
-        Example.Criteria criteria = example.createCriteria();
+        WeekendSqls<AccountUser> weekendSqls=WeekendSqls.<AccountUser>custom();
+        //条件筛选
         if(queryUserReuqest!=null){
             // 用户名
             if(StringUtils.isNotBlank(queryUserReuqest.getUsername())){
-                criteria.andEqualTo("username",queryUserReuqest.getUsername());
+                weekendSqls.andEqualTo(AccountUser::getUsername,queryUserReuqest.getUsername());
             }
             if(StringUtils.isNotBlank(queryUserReuqest.getCreateTime())){
-                criteria.andEqualTo("createTime",queryUserReuqest.getCreateTime());
+                weekendSqls.andEqualTo(AccountUser::getCreateTime,queryUserReuqest.getCreateTime());
             }
-
-
         }
-        return example;
+        return Example.builder(AccountUser.class).where(weekendSqls).build();
     }
 
 }
