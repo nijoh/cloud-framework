@@ -27,6 +27,7 @@
         <jackson-databind-vserion>2.14.2</jackson-databind-vserion>
         <pagehelper-version>1.3.0</pagehelper-version>
         <commons-lang3-version>3.12.0</commons-lang3-version>
+        <jjwt-version>0.9.1</jjwt-version>
     </properties>
     <packaging>pom</packaging>
     <modules>
@@ -34,7 +35,7 @@
         <module>utils</module>
         <module>model</module>
         <module>auth</module>
-        <module>cloud-commons</module>
+        <module>cloud-integrate</module>
     </modules>
 
     <dependencyManagement>
@@ -112,6 +113,12 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

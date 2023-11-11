@@ -14,7 +14,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
@@ -38,7 +37,7 @@ public class AccountUserServiceImpl implements AccountUserService {
      * @see com.cloud.framework.auth.service.AccountUserService#findAccountUserByEmail(String)
      */
     @Override
-    @Cacheable(cacheNames="UserInfo",key = "#email")
+    //@Cacheable(cacheNames="UserInfo",key = "#email")
     public AccountUser findAccountUserByEmail(String email) {
         AccountUser accountUser = new AccountUser();
         accountUser.setEmail(email);

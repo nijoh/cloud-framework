@@ -1,4 +1,4 @@
-package com.cloud.framework.auth.config;
+package com.cloud.framework.auth.config.mybatis;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

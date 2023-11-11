@@ -1,6 +1,6 @@
 package com.cloud.framework.auth.dal;
 
-import com.cloud.framework.auth.config.MyBaseMapper;
+import com.cloud.framework.auth.config.mybatis.MyBaseMapper;
 import com.cloud.framework.auth.pojo.AuthItem;
 import org.apache.ibatis.annotations.Mapper;
 

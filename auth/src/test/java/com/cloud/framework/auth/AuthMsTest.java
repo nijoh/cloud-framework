@@ -2,7 +2,7 @@ package com.cloud.framework.auth;
 
 import com.cloud.framework.auth.dal.AuthMsMapper;
 import com.cloud.framework.auth.pojo.AuthMs;
-import com.cloud.framework.cloudredis.config.RedisUtil;
+import com.cloud.framework.integrate.cache.RedisCacheTemplate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ public class AuthMsTest {
     private AuthMsMapper authMsMapper;
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisCacheTemplate redisCacheTemplate;
 
     @Test
     void testInsert() {
@@ -43,12 +43,12 @@ public class AuthMsTest {
         System.out.println("hash值:"+testKey.hashCode()+",取模100下标:"+index);
 
         //set
-        redisUtil.add(key+index,map);
+        redisCacheTemplate.add(key+index,map);
 
 
         //获取
         int getIndex=testKey.hashCode()%100;
-        String mapString = redisUtil.getMapString(key + index, testKey);
+        String mapString = redisCacheTemplate.getMapString(key + index, testKey);
         System.out.println("获取key："+mapString);
     }
 

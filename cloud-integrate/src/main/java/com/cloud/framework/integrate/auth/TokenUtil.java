@@ -1,10 +1,8 @@
-package com.cloud.framework.auth.utils;
+package com.cloud.framework.integrate.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -14,30 +12,14 @@ import java.util.Objects;
 
 /**
  * JWT工具类
- * */
-@Component
-public class JwtUtil {
+ */
+public class TokenUtil {
     //私钥
-    private static String SECRET_KEY;
+    private static String SECRET_KEY = "CloudFramSecret";
     //过期时间30S
-    private static Long EXPIRATION_TIME;
+    private static Long EXPIRATION_TIME = 60000L;
     //签名
-    private static String ISS;
-
-    @Value("${JWK.SECRET-KEY}")
-    public void setSecretKey(String secretKey) {
-        SECRET_KEY = secretKey;
-    }
-
-    @Value("${JWK.EXPIRATION-TIME}")
-    public  void setExpirationTime(Long expirationTime) {
-        EXPIRATION_TIME = expirationTime;
-    }
-
-    @Value("${JWK.ISS}")
-    public  void setISS(String ISS) {
-        JwtUtil.ISS = ISS;
-    }
+    private static String ISS = "MostSnails";
 
     public static String getSecretKey() {
         return SECRET_KEY;
@@ -91,7 +73,7 @@ public class JwtUtil {
      * @return
      * @throws Exception
      */
-    public static Claims parseJWT(String token) throws Exception {
+    public static Claims parseJWT(String token) {
         SecretKey secretKey = generalKey();
         return Jwts.parser()
                 .setSigningKey(secretKey)

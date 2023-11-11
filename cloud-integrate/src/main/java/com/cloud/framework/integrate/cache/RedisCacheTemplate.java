@@ -1,4 +1,4 @@
-package com.cloud.framework.cloudredis.config;
+package com.cloud.framework.integrate.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @author nijo_h
  * * @date 2023/4/6 23:24
  */
-public class RedisUtil {
+public class RedisCacheTemplate {
     @Autowired
     private RedisTemplate redisTemplate;
     /**

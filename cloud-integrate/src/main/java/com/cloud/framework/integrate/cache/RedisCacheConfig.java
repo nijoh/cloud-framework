@@ -1,4 +1,4 @@
-package com.cloud.framework.cloudredis.config;
+package com.cloud.framework.integrate.cache;
 
 
 import org.springframework.cache.CacheManager;
@@ -22,15 +22,15 @@ import java.time.Duration;
  */
 @Configuration
 @EnableCaching
-public class RedisConfig {
+public class RedisCacheConfig {
     @Bean
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         //使用fastjson序列化
-        FastJsonRedisSerializer fastJsonRedisSerializer = new FastJsonRedisSerializer(Object.class);
+        JsonRedisSerializer jsonRedisSerializer = new JsonRedisSerializer(Object.class);
         // value值的序列化采用fastJsonRedisSerializer
-        template.setValueSerializer(fastJsonRedisSerializer);
-        template.setHashValueSerializer(fastJsonRedisSerializer);
+        template.setValueSerializer(jsonRedisSerializer);
+        template.setHashValueSerializer(jsonRedisSerializer);
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
@@ -45,13 +45,13 @@ public class RedisConfig {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(duration)
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new FastJsonRedisSerializer(Object.class)));
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new JsonRedisSerializer(Object.class)));
         return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(connectionFactory))
                 .cacheDefaults(redisCacheConfiguration).build();
     }
 
     @Bean
-    public RedisUtil redisUtil(){
-        return new RedisUtil();
+    public RedisCacheTemplate redisUtil(){
+        return new RedisCacheTemplate();
     }
 }

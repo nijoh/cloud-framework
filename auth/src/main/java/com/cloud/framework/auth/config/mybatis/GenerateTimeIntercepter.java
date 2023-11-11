@@ -1,4 +1,4 @@
-package com.cloud.framework.auth.config;
+package com.cloud.framework.auth.config.mybatis;
 
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;

@@ -1,4 +1,4 @@
-package com.cloud.framework.auth.config;
+package com.cloud.framework.auth.config.mybatis;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

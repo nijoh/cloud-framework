@@ -7,7 +7,7 @@ public class CloudConstant {
     /********************************* HTTP请求  **********************************/
 
     //JWT请求头
-    public static String REQUEST_JWT_HEADER = "Authorization";
+    public static String REQUEST_AUTHORIZATION_TOKEN = "AuthorizationToken";
 
     //response返回类型
     public static String RESPONSE_CONTENTTYPE = "application/json;charset=UTF-8";

@@ -7,7 +7,7 @@ import com.cloud.framework.auth.pojo.StaffInfo;
 import com.cloud.framework.auth.pojo.request.LoginUserRequest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AuthService;
-import com.cloud.framework.auth.utils.JwtUtil;
+import com.cloud.framework.integrate.auth.TokenUtil;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
 import com.cloud.framework.model.common.constant.CloudConstant;
@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
 
        // AccountUser accountUser=(AccountUser)authenticate.getPrincipal();
         //生成Token
-        String jwt = JwtUtil.createJWT(request.getEmail(), JwtUtil.getExpirationTime());
+        String jwt = TokenUtil.createJWT(request.getEmail(), TokenUtil.getExpirationTime());
 
         return jwt;
     }

@@ -1,4 +1,4 @@
-package com.cloud.framework.cloudredis.config;
+package com.cloud.framework.integrate.cache;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -12,11 +12,11 @@ import java.nio.charset.Charset;
  * @author nijo_h
  * * @date 2023/4/6 23:12
  */
-public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
+public class JsonRedisSerializer<T> implements RedisSerializer<T> {
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
     private Class<T> clazz;
 
-    public FastJsonRedisSerializer(Class<T> clazz) {
+    public JsonRedisSerializer(Class<T> clazz) {
         super();
         this.clazz = clazz;
     }

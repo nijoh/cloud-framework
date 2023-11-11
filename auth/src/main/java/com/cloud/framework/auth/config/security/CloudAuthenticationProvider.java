@@ -1,8 +1,8 @@
-package com.cloud.framework.auth.config;
+package com.cloud.framework.auth.config.security;
 
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.service.AccountUserService;
-import com.cloud.framework.cloudredis.config.RedisUtil;
+import com.cloud.framework.integrate.cache.RedisCacheTemplate;
 import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.utils.AsserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class CloudAuthenticationProvider implements AuthenticationProvider {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisCacheTemplate redisCacheTemplate;
 
     /**
      * 验证登陆认证逻辑
