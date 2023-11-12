@@ -1,19 +1,5 @@
 package com.cloud.framework.auth.service.impl;
 
-import com.cloud.framework.auth.dal.AccountUserMapper;
-import com.cloud.framework.auth.dal.StaffInfoMapper;
-import com.cloud.framework.auth.pojo.AccountUser;
-import com.cloud.framework.auth.pojo.StaffInfo;
-import com.cloud.framework.auth.pojo.request.LoginUserRequest;
-import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
-import com.cloud.framework.auth.service.AuthService;
-import com.cloud.framework.integrate.auth.TokenUtil;
-import com.cloud.framework.auth.utils.TransactionProcessor;
-import com.cloud.framework.auth.utils.TransactionService;
-import com.cloud.framework.model.common.constant.CloudConstant;
-import com.cloud.framework.utils.AsserUtil;
-import com.cloud.framework.utils.GenerateUtil;
-import com.cloud.framework.utils.PasswordEncrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +8,25 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSON;
+import com.cloud.framework.auth.dal.AccountUserMapper;
+import com.cloud.framework.auth.dal.StaffInfoMapper;
+import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.pojo.StaffInfo;
+import com.cloud.framework.auth.pojo.request.LoginUserRequest;
+import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
+import com.cloud.framework.auth.service.AuthService;
+import com.cloud.framework.auth.utils.AccountUserConvert;
+import com.cloud.framework.auth.utils.TransactionProcessor;
+import com.cloud.framework.auth.utils.TransactionService;
+import com.cloud.framework.integrate.auth.TokenUtil;
+import com.cloud.framework.model.auth.result.AccountUserDTO;
+import com.cloud.framework.model.auth.result.LoginResultDTO;
+import com.cloud.framework.model.common.constant.CloudConstant;
+import com.cloud.framework.utils.AsserUtil;
+import com.cloud.framework.utils.GenerateUtil;
+import com.cloud.framework.utils.PasswordEncrypt;
 
 /**
  * 系统授权ServiceImpl
@@ -46,7 +51,8 @@ public class AuthServiceImpl implements AuthService {
      * @see com.cloud.framework.auth.service.AuthService#login(LoginUserRequest request)
      */
     @Override
-    public String login(LoginUserRequest request) {
+    public LoginResultDTO login(LoginUserRequest request) {
+        LoginResultDTO result =new LoginResultDTO();
         //加密
         String encryptPassword = PasswordEncrypt.encryptSHA256(request.getPassWord());
         //使用security框架自带的验证token生成器  也可以自定义。
@@ -54,12 +60,13 @@ public class AuthServiceImpl implements AuthService {
         Authentication authenticate = authenticationManager.authenticate(token);
         //放入Security上下文
         SecurityContextHolder.getContext().setAuthentication(authenticate);
-
-       // AccountUser accountUser=(AccountUser)authenticate.getPrincipal();
+        //账户信息
+        AccountUserDTO accountUserDTO =AccountUserConvert.converToDTOModel((AccountUser) authenticate.getPrincipal());
         //生成Token
-        String jwt = TokenUtil.createJWT(request.getEmail(), TokenUtil.getExpirationTime());
-
-        return jwt;
+        String jwtToken = TokenUtil.createJWT(JSON.toJSONString(accountUserDTO), TokenUtil.getExpirationTime());
+        BeanUtils.copyProperties(accountUserDTO,result);
+        result.setAuthorizationToken(jwtToken);
+        return result;
     }
 
     /**

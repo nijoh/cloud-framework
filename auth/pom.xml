@@ -86,12 +86,12 @@
             <groupId>com.cloud.framework</groupId>
             <artifactId>cloud-integrate</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.jsonwebtoken</groupId>
-                    <artifactId>jjwt</artifactId>
-                </exclusion>
-            </exclusions>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>io.jsonwebtoken</groupId>-->
+<!--                    <artifactId>jjwt</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
 
         <dependency>

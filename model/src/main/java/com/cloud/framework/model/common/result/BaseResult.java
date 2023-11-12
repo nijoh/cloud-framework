@@ -14,7 +14,7 @@ public class BaseResult<T> implements Serializable {
     //提示信息
     private String msg;
     //数据
-    private T data;
+    private T content;
 
     public BaseResult() {
     }
@@ -24,7 +24,7 @@ public class BaseResult<T> implements Serializable {
         this.success = success;
         this.code = code;
         this.msg = msg;
-        this.data = data;
+        this.content = data;
 
     }
 
@@ -39,7 +39,7 @@ public class BaseResult<T> implements Serializable {
     public BaseResult success(T data) {
         this.success = true;
         this.code = 200;
-        this.data = data;
+        this.content = data;
         this.msg="成功";
         return this;
     }
@@ -76,11 +76,11 @@ public class BaseResult<T> implements Serializable {
         this.msg = msg;
     }
 
-    public T getData() {
-        return data;
+    public T getContent() {
+        return content;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setContent(T content) {
+        this.content = content;
     }
 }

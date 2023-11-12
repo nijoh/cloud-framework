@@ -16,8 +16,8 @@ import java.util.Objects;
 public class TokenUtil {
     //私钥
     private static String SECRET_KEY = "CloudFramSecret";
-    //过期时间30S
-    private static Long EXPIRATION_TIME = 60000L;
+    //过期时间1h  30000L 60L*1000*60
+    private static Long EXPIRATION_TIME = 30000L;
     //签名
     private static String ISS = "MostSnails";
 

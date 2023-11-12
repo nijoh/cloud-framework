@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author nijo_h
  * * @date 2023/11/2 22:15
  */
-@RequestMapping("/accountUser")
+@RequestMapping("/account")
 @RestController
 public class AccountUserController {
     //账号用户Service
@@ -26,13 +26,13 @@ public class AccountUserController {
     private AccountUserService accountUserService;
 
 
-    @PostMapping("/queryPage")
+    @PostMapping("/user/queryPage")
     public BaseResult<PageInfo<AccountUserDTO>> queryUserPage(@RequestBody QueryUserReuqest queryUserReuqest){
         BaseResult<PageInfo<AccountUserDTO>> result =new BaseResult<>();
         ApiProcessor.processor(result, new BusinessTemplate() {
             @Override
             public void processor() {
-                result.setData(accountUserService.queryPage(queryUserReuqest));
+                result.setContent(accountUserService.queryPage(queryUserReuqest));
             }
         });
         return result;
