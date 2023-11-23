@@ -4,7 +4,7 @@ package com.cloud.framework.auth;
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
-import com.cloud.framework.auth.service.AccountUserService;
+import com.cloud.framework.auth.service.AccountUserMangeService;
 import com.cloud.framework.utils.GenerateUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ public class AccountUserTest {
     private AccountUserMapper accountUserMapper;
 
     @Autowired
-    private AccountUserService accountUserService;
+    private AccountUserMangeService accountUserMangeService;
 
     @Test
     void testInsert(){
@@ -41,7 +41,7 @@ public class AccountUserTest {
         request.setUsername("超级管理");
         request.setName("超级管理");
         request.setGender('1');
-        accountUserService.saveAccountUser(request);
+        accountUserMangeService.saveAccountUser(request);
     }
 
 }

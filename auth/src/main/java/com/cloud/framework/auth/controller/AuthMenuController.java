@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * * @date 2023/3/30 11:27 下午
  */
 @RestController
-@RequestMapping("/authMenu")
+@RequestMapping("/meuns")
 public class AuthMenuController {
     @Autowired
     private AuthMenuService authMenuService;

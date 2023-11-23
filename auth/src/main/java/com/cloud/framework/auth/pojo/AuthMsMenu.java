@@ -72,4 +72,9 @@ public class AuthMsMenu implements Serializable {
      * @see com.cloud.framework.model.common.enums.BaseStatus
      */
     private Boolean status;
+
+    /**
+     * 菜单码
+     * */
+    private String menuCode;
 }

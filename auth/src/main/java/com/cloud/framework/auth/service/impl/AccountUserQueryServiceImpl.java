@@ -1,40 +1,36 @@
 package com.cloud.framework.auth.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.cloud.commons.lang.StringUtils;
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.pojo.request.QueryUserReuqest;
-import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
-import com.cloud.framework.auth.service.AccountUserService;
+import com.cloud.framework.auth.service.AccountUserQueryService;
 import com.cloud.framework.auth.utils.AccountUserConvert;
-import com.cloud.framework.auth.utils.TransactionProcessor;
-import com.cloud.framework.auth.utils.TransactionService;
-import com.cloud.framework.model.common.constant.CloudConstant;
-import com.cloud.framework.utils.AsserUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
 
-import java.util.List;
-
 /**
- * 账户信息ServiceImpl
+ * 查询用户账户信息
+ * @author nijo_h
+ * * @date 2023/11/14 19:53
  */
 @Service
-public class AccountUserServiceImpl implements AccountUserService {
+public class AccountUserQueryServiceImpl implements AccountUserQueryService {
     //账户信息Mapper
     @Autowired
     private AccountUserMapper accountUserMapper;
 
-    //DB事务模版
-    @Autowired
-    private TransactionService transactionService;
 
     /**
-     * @see com.cloud.framework.auth.service.AccountUserService#findAccountUserByEmail(String)
+     * @see AccountUserQueryService#findAccountUserByEmail(String)
      */
     @Override
     //@Cacheable(cacheNames="UserInfo",key = "#email")
@@ -45,23 +41,7 @@ public class AccountUserServiceImpl implements AccountUserService {
     }
 
     /**
-     * @see com.cloud.framework.auth.service.AccountUserService#saveAccountUser(RegistAccountUserRequest)
-     */
-    @Override
-    public void saveAccountUser(RegistAccountUserRequest request) {
-        AccountUser accountUser = AccountUserConvert.buildConverDOFromRequst(request);
-        transactionService.processor(new TransactionProcessor() {
-            @Override
-            public void processor() {
-                int result = accountUserMapper.insertSelective(accountUser);
-                AsserUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, "保存账户信息表失败");
-            }
-        });
-    }
-
-
-    /**
-     * @see AccountUserService#queryPage(QueryUserReuqest)
+     * @see AccountUserQueryService#queryPage(QueryUserReuqest)
      */
     @Override
     public PageInfo queryPage(QueryUserReuqest queryUserReuqest) {
@@ -93,5 +73,4 @@ public class AccountUserServiceImpl implements AccountUserService {
         }
         return Example.builder(AccountUser.class).where(weekendSqls).build();
     }
-
 }
