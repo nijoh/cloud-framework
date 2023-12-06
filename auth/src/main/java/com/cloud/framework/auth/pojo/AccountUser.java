@@ -80,4 +80,9 @@ public class AccountUser implements Serializable {
      * 操作人
      */
     private String operate;
+
+    /**
+     * 系统域名
+     */
+    private String msDomain;
 }

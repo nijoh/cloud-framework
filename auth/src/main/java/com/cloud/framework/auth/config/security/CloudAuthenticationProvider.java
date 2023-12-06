@@ -44,7 +44,7 @@ public class CloudAuthenticationProvider implements AuthenticationProvider {
         //已加密密码
         String password = authentication.getCredentials().toString();
         //查找用户
-        AccountUser user = accountUserQueryService.findAccountUserByEmail(name);
+        AccountUser user = accountUserQueryService.findAccountUser(name);
         AsserUtil.notNull(user, CloudConstant.AUTH_HMODEL,CloudConstant.NOT_ACCOUNTUSER);
         //比对密码
         boolean loginResult = passwordEncoder.matches(password, user.getPassword());

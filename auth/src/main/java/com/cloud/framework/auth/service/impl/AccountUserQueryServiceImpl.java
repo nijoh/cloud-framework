@@ -2,6 +2,7 @@ package com.cloud.framework.auth.service.impl;
 
 import java.util.List;
 
+import com.cloud.framework.model.auth.result.AccountUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.pojo.request.QueryUserReuqest;
 import com.cloud.framework.auth.service.AccountUserQueryService;
-import com.cloud.framework.auth.utils.AccountUserConvert;
+import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -34,10 +35,20 @@ public class AccountUserQueryServiceImpl implements AccountUserQueryService {
      */
     @Override
     //@Cacheable(cacheNames="UserInfo",key = "#email")
-    public AccountUser findAccountUserByEmail(String email) {
-        AccountUser accountUser = new AccountUser();
-        accountUser.setEmail(email);
-        return accountUserMapper.selectOne(accountUser);
+    public AccountUserDTO findAccountUserByEmail(String email) {
+        AccountUser accountUser = findAccountUser(email);
+        return AccountUserConvert.converToDTOModel(accountUser);
+    }
+
+    /**
+     * @see AccountUserQueryService#findAccountUser(String)
+     */
+    @Override
+    public AccountUser findAccountUser(String email) {
+        AccountUser accountUserRequest = new AccountUser();
+        accountUserRequest.setEmail(email);
+        AccountUser accountUser = accountUserMapper.selectOne(accountUserRequest);
+        return accountUser;
     }
 
     /**

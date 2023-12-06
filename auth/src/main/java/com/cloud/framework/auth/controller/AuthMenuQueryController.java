@@ -2,6 +2,8 @@ package com.cloud.framework.auth.controller;
 
 import java.util.List;
 
+import com.cloud.framework.integrate.auth.AuthUserContextHolder;
+import com.cloud.framework.model.auth.result.AuthMenuTreeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +37,19 @@ public class AuthMenuQueryController {
             }
         });
         return result;
+    }
+
+    @GetMapping("/queryTree")
+    public BaseResult<List<AuthMenuTreeDTO>> queryTree(){
+        BaseResult<List<AuthMenuTreeDTO>> result =new BaseResult<>();
+        System.out.println("当前登录的用户:"+AuthUserContextHolder.getCurrentUser().getUsername());
+        ApiProcessor.processor(result, new BusinessTemplate() {
+            @Override
+            public void processor() {
+                result.setContent(authMenuQueryService.queryTree());
+            }
+        });
+        return result;
+
     }
 }

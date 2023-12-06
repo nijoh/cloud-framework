@@ -1,10 +1,11 @@
-package com.cloud.framework.auth.utils;
+package com.cloud.framework.auth.utils.convert;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cloud.framework.auth.pojo.AuthMsMenu;
 import com.cloud.framework.model.auth.result.AuthMenuDTO;
+import com.cloud.framework.model.auth.result.AuthMenuTreeDTO;
 
 /**
  * 菜单数据转换
@@ -26,6 +27,7 @@ public class AuthMenuConvert {
         authMenuDTO.setMenuDesc(authMsMenu.getMenuDesc());
         authMenuDTO.setMenuUri(authMsMenu.getMenuUri());
         authMenuDTO.setMenuCode(authMsMenu.getMenuCode());
+        authMenuDTO.setMenuType(authMsMenu.getMenuType());
         return authMenuDTO;
     }
 
@@ -40,5 +42,23 @@ public class AuthMenuConvert {
             authMenuDTOList.add(converToDTOModel(authMsMenu));
         }
         return authMenuDTOList;
+    }
+
+    /**
+     * 转换Tree结构
+     * @param authMsMenu
+     * @return
+     */
+    public static AuthMenuTreeDTO  converToTreeDTOModel(AuthMsMenu authMsMenu){
+        AuthMenuTreeDTO authMenuTreeDTO = new AuthMenuTreeDTO();
+        authMenuTreeDTO.setId(authMsMenu.getId());
+        authMenuTreeDTO.setMsId(authMsMenu.getMsId());
+        authMenuTreeDTO.setParentId(authMsMenu.getParentId());
+        authMenuTreeDTO.setMenuName(authMsMenu.getMenuName());
+        authMenuTreeDTO.setMenuDesc(authMsMenu.getMenuDesc());
+        authMenuTreeDTO.setMenuUri(authMsMenu.getMenuUri());
+        authMenuTreeDTO.setMenuCode(authMsMenu.getMenuCode());
+        authMenuTreeDTO.setMenuType(authMsMenu.getMenuType());
+        return authMenuTreeDTO;
     }
 }

@@ -1,7 +1,8 @@
-package com.cloud.framework.auth.utils;
+package com.cloud.framework.auth.utils.convert;
 
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
+import com.cloud.framework.integrate.auth.AuthUserContextHolder;
 import com.cloud.framework.model.auth.result.AccountUserDTO;
 import com.cloud.framework.utils.GenerateUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
@@ -28,6 +29,8 @@ public class AccountUserConvert {
         BeanUtils.copyProperties(request, accountUser);
         accountUser.setId(GenerateUtil.generateAccountId());
         accountUser.setPassword(bcryptPasswordEncoder.encode(PasswordEncrypt.encryptSHA256(request.getPassword())));
+        accountUser.setMsDomain(AuthUserContextHolder.getCurrentMsDomain());
+        accountUser.setOperate(AuthUserContextHolder.getOperate());
         return accountUser;
     }
 
@@ -45,6 +48,7 @@ public class AccountUserConvert {
         accountUserDTO.setLastLoginTime(accountUser.getLastLoginTime());
         accountUserDTO.setLoginIp(accountUser.getLoginIp());
         accountUserDTO.setStatus(accountUser.getStatus());
+        accountUserDTO.setMsDomain(accountUser.getMsDomain());
         return accountUserDTO;
     }
 

@@ -39,4 +39,9 @@ public class AddAuthMenuRequest implements Serializable {
      * 父菜单id
      */
     private Integer parentId;
+
+    /**
+     * 菜单类型
+     */
+    private String menuType;
 }

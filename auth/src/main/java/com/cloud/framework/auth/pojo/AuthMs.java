@@ -2,9 +2,7 @@ package com.cloud.framework.auth.pojo;
 
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
@@ -17,9 +15,10 @@ import java.time.LocalDateTime;
  *
  * */
 @Table(name = "auth_ms")
-@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthMs implements Serializable {
     /**
      * 自增id

@@ -39,12 +39,11 @@ public class AsserUtil {
      * 断言必须为NULL或者空内容,否则异常
      *
      * @param collection 集合
-     * @param model      模块
      * @param msg        异常信息
      */
-    public static void isEmpty(Collection collection, String model, String msg) {
-        if (!Objects.isNull(collection) || !collection.isEmpty()) {
-            throw new AsserException(msg);
+    public static void isEmpty(Collection collection, String msg,String... value) {
+        if (Objects.isNull(collection) || collection.isEmpty()) {
+            throw new AsserException(String.format(msg,value));
 
         }
     }
@@ -53,12 +52,11 @@ public class AsserUtil {
      * 断言必须有内容非NULL,否则异常
      *
      * @param collection 集合
-     * @param model      模块
      * @param msg        异常信息
      */
-    public static void notEmpty(Collection collection, String model, String msg) {
+    public static void notEmpty(Collection collection, String msg,String... value) {
         if (!Objects.nonNull(collection) || !collection.isEmpty()) {
-            throw new AsserException(msg);
+            throw new AsserException(String.format(msg,value));
         }
     }
 

@@ -55,4 +55,9 @@ public class AccountUserDTO implements Serializable {
      * @see com.cloud.framework.model.common.enums.BaseStatus
      */
     private String status;
+
+    /**
+     * 系统域名
+     */
+    private String msDomain;
 }

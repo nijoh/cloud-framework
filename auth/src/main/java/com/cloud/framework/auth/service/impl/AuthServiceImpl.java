@@ -1,14 +1,5 @@
 package com.cloud.framework.auth.service.impl;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.alibaba.fastjson.JSON;
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.dal.StaffInfoMapper;
@@ -17,16 +8,24 @@ import com.cloud.framework.auth.pojo.StaffInfo;
 import com.cloud.framework.auth.pojo.request.LoginUserRequest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AuthService;
-import com.cloud.framework.auth.utils.AccountUserConvert;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
+import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.cloud.framework.integrate.auth.TokenUtil;
 import com.cloud.framework.model.auth.result.AccountUserDTO;
 import com.cloud.framework.model.auth.result.LoginResultDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.utils.AsserUtil;
-import com.cloud.framework.utils.GenerateUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import static com.cloud.framework.auth.utils.convert.AccountUserConvert.buildConverDOFromRequst;
 
 /**
  * 系统授权ServiceImpl
@@ -74,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public void regist(RegistAccountUserRequest request) {
-        AccountUser accountUser = converAccountUser(request);
+        AccountUser accountUser = buildConverDOFromRequst(request);
         StaffInfo staffInfo = converStaffInfo(request, accountUser.getId());
         transactionService.processor(new TransactionProcessor() {
 
@@ -89,21 +88,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-    /**
-     * 模型转换表
-     *
-     * @param request 模型
-     * @return AccountUser 表对象
-     */
-    private AccountUser converAccountUser(RegistAccountUserRequest request) {
-        AccountUser accountUser = new AccountUser();
-        BeanUtils.copyProperties(request, accountUser);
-        //GenerateId
-        accountUser.setId(GenerateUtil.generateAccountId());
-        accountUser.setPassword(new BCryptPasswordEncoder()
-                .encode(PasswordEncrypt.encryptSHA256(request.getPassword())));
-        return accountUser;
-    }
 
     /**
      * 模型转换表

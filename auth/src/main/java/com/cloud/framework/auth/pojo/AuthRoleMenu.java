@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
  * 系统权限表
  *
  */
-@Table(name = "auth_item")
+@Table(name = "auth_role_menu")
 @Getter
 @Setter
-public class AuthItem implements Serializable {
+public class AuthRoleMenu implements Serializable {
     /**
      * 自增id
      */
@@ -32,9 +32,14 @@ public class AuthItem implements Serializable {
     private Integer msId;
 
     /**
-     * 页面/接口uri
+     * 菜单ID
      */
     private String menuId;
+
+    /**
+     * 角色
+     */
+    private Integer roleId;
 
     /**
      * 创建时间

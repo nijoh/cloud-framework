@@ -10,7 +10,7 @@ import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.pojo.request.DeleteUserRequest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AccountUserMangeService;
-import com.cloud.framework.auth.utils.AccountUserConvert;
+import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
 import com.cloud.framework.model.common.constant.CloudConstant;

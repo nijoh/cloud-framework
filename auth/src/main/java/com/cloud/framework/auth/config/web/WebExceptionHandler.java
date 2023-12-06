@@ -1,4 +1,4 @@
-package com.cloud.framework.auth.config;
+package com.cloud.framework.auth.config.web;
 
 import com.cloud.framework.model.common.enums.HttpEnum;
 import com.cloud.framework.model.common.result.BaseResult;

@@ -1,5 +1,6 @@
 package com.cloud.framework.auth.pojo;
 
+import com.cloud.framework.auth.pojo.enums.MenuTypeEnum;
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
 import lombok.Getter;
@@ -77,4 +78,10 @@ public class AuthMsMenu implements Serializable {
      * 菜单码
      * */
     private String menuCode;
+
+    /**
+     * 菜单类型
+     * @see MenuTypeEnum
+     */
+    private String menuType;
 }

@@ -1,6 +1,8 @@
 package com.cloud.framework.utils;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,5 +26,19 @@ public class DefaultUtil {
             return new ArrayList<>();
         }
         return params;
+    }
+
+
+    /**
+     * 获取默认值
+     * @param value
+     * @param defaultValue
+     * @return
+     */
+    public static String defaultValue(final String value,String defaultValue){
+        if(StringUtils.isNotBlank(value)){
+            return value;
+        }
+        return defaultValue;
     }
 }
