@@ -15,7 +15,7 @@ import com.cloud.framework.integrate.auth.TokenUtil;
 import com.cloud.framework.model.auth.result.AccountUserDTO;
 import com.cloud.framework.model.auth.result.LoginResultDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
-import com.cloud.framework.utils.AsserUtil;
+import com.cloud.framework.utils.AssertUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,9 +80,9 @@ public class AuthServiceImpl implements AuthService {
             @Override
             public void processor() {
                 int result = accountUserMapper.insertSelective(accountUser);
-                AsserUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, CloudConstant.DB_INSERT_ERROR);
+                AssertUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, CloudConstant.DB_INSERT_ERROR);
                 result=staffInfoMapper.insertSelective(staffInfo);
-                AsserUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, CloudConstant.DB_INSERT_ERROR);
+                AssertUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, CloudConstant.DB_INSERT_ERROR);
             }
         });
     }

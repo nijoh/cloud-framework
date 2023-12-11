@@ -1,5 +1,6 @@
 package com.cloud.framework.model.auth.result;
 
+import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,7 +53,7 @@ public class AccountUserDTO implements Serializable {
     private String loginIp;
 
     /**
-     * @see com.cloud.framework.model.common.enums.BaseStatus
+     * @see BaseStatusEnum
      */
     private String status;
 

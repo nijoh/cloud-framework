@@ -1,5 +1,6 @@
 package com.cloud.framework.utils;
 
+import com.cloud.framework.model.common.base.CodeEnum;
 import com.cloud.framework.utils.exceptions.AsserException;
 
 import java.util.Collection;
@@ -8,7 +9,7 @@ import java.util.Objects;
 /**
  * 断言工具类
  */
-public class AsserUtil {
+public class AssertUtil {
     /**
      * 断言必须为NULL,否则异常
      *
@@ -26,12 +27,11 @@ public class AsserUtil {
      * 断言必须为非空,否则异常
      *
      * @param obj   断言类
-     * @param model 模块
      * @param msg   异常信息
      */
-    public static void notNull(Object obj, String model, String msg) {
+    public static void notNull(Object obj, String msg,Object... args) {
         if (!Objects.nonNull(obj)) {
-            throw new AsserException(msg);
+            throw new AsserException(String.format(msg,args));
         }
     }
 
@@ -41,7 +41,7 @@ public class AsserUtil {
      * @param collection 集合
      * @param msg        异常信息
      */
-    public static void isEmpty(Collection collection, String msg,String... value) {
+    public static void isEmpty(Collection collection, String msg,Object... value) {
         if (Objects.isNull(collection) || collection.isEmpty()) {
             throw new AsserException(String.format(msg,value));
 
@@ -54,7 +54,7 @@ public class AsserUtil {
      * @param collection 集合
      * @param msg        异常信息
      */
-    public static void notEmpty(Collection collection, String msg,String... value) {
+    public static void notEmpty(Collection collection, String msg,Object... value) {
         if (!Objects.nonNull(collection) || !collection.isEmpty()) {
             throw new AsserException(String.format(msg,value));
         }
@@ -71,5 +71,16 @@ public class AsserUtil {
         if (!obj) {
             throw new AsserException(msg);
         }
+    }
+
+    /**
+     * 判断code是否在枚举中
+     * @param code
+     * @param enumClass
+     * @param msg
+     * @param args
+     */
+    public static void inEnum(String code, Class<? extends CodeEnum> enumClass,String msg,Object... args) {
+        notNull(EnumUtil.getCode(enumClass,code),msg,args);
     }
 }

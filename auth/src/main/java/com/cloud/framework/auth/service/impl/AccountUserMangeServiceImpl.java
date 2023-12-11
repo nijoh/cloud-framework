@@ -14,7 +14,7 @@ import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
 import com.cloud.framework.model.common.constant.CloudConstant;
-import com.cloud.framework.utils.AsserUtil;
+import com.cloud.framework.utils.AssertUtil;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
@@ -48,7 +48,7 @@ public class AccountUserMangeServiceImpl implements AccountUserMangeService {
             @Override
             public void processor() {
                 int result = accountUserMapper.insertSelective(accountUser);
-                AsserUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, "保存账户信息表失败");
+                AssertUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, "保存账户信息表失败");
             }
         });
     }

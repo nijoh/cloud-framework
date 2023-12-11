@@ -16,10 +16,10 @@ public class WebConifg implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截顺序按照加入顺序,order执行优先级
+        registry.addInterceptor(authMsHandlerInterceptor)
+                .addPathPatterns("/**");//拦截所有
         registry.addInterceptor(accountUserHandlerInterceptor)
                 .addPathPatterns("/**")//拦截所有
                 .excludePathPatterns("/auth/**");//排除登录、注册
-        registry.addInterceptor(authMsHandlerInterceptor)
-                .addPathPatterns("/**");//拦截所有
     }
 }

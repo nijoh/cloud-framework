@@ -18,8 +18,8 @@ public class AuthMsQueryServiceImpl implements AuthMsQueryService {
      */
     @Override
     public AuthMsDTO queryAuthMsByDomain(String msDomain) {
-        AuthMs requst=new AuthMs();
-        requst.setMsDomain(msDomain);
-        return AuthMsConvert.converToDTOModel(authMsMapper.selectOne(requst));
+        AuthMs request=new AuthMs();
+        request.setMsDomain(msDomain);
+        return AuthMsConvert.converToDTOModel(authMsMapper.selectOne(request));
     }
 }

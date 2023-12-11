@@ -14,11 +14,17 @@ public class MybatisInterceptorConfig {
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
+
+    @Autowired
+    private QueryInterceptor queryInterceptor;
+
+
     /**
      * 日期填充拦截器
-     * */
+     */
     @PostConstruct
     public void addGenerateTimeIntercepter() {
-        sqlSessionFactory.getConfiguration().addInterceptor(new GenerateTimeIntercepter());
+        sqlSessionFactory.getConfiguration().addInterceptor(new InsertUpdateIntercepter());
+        sqlSessionFactory.getConfiguration().addInterceptor(queryInterceptor);
     }
 }

@@ -2,6 +2,7 @@ package com.cloud.framework.auth.pojo;
 
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
+import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -72,7 +73,7 @@ public class AccountUser implements Serializable {
     private String loginIp;
 
     /**
-     * @see com.cloud.framework.model.common.enums.BaseStatus
+     * @see BaseStatusEnum
      */
     private String status;
 

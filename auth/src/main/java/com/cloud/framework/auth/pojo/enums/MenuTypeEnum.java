@@ -1,9 +1,11 @@
 package com.cloud.framework.auth.pojo.enums;
 
+import com.cloud.framework.model.common.base.CodeEnum;
+
 /**
  * 菜单类型枚举
  */
-public enum MenuTypeEnum {
+public enum MenuTypeEnum implements CodeEnum {
     MENU_NAVIGATION("navigation","菜单导航"),
     MENU_RESOURCE("resource","菜单资源");
 

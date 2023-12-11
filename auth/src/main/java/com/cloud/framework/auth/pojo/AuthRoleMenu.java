@@ -2,6 +2,7 @@ package com.cloud.framework.auth.pojo;
 
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
+import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,7 +61,7 @@ public class AuthRoleMenu implements Serializable {
 
     /**
      * 状态 1:启用, 0:关闭, -1:删除标识
-     * @see com.cloud.framework.model.common.enums.BaseStatus
+     * @see BaseStatusEnum
      */
     private Boolean status;
 }

@@ -1,5 +1,6 @@
 package com.cloud.framework.auth.config.web;
 
+import com.alibaba.cloud.commons.lang.StringUtils;
 import com.cloud.framework.auth.service.AccountUserQueryService;
 import com.cloud.framework.integrate.auth.AuthUserContextHolder;
 import com.cloud.framework.model.auth.result.AccountUserDTO;
@@ -22,17 +23,20 @@ public class AccountUserHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-        throws Exception {
+            throws Exception {
         //设置当前登录用户
         String accountUserEmail = request.getHeader(CloudConstant.REQUEST_HEADER_ACCOUNTUSEREMAIL);
-        AccountUserDTO accountUserByEmail = accountUserQueryService.findAccountUserByEmail(accountUserEmail);
-        AuthUserContextHolder.putCurrentUser(accountUserByEmail);
-        return true;
+        if (StringUtils.isNotBlank(accountUserEmail)) {
+            AccountUserDTO accountUserByEmail = accountUserQueryService.findAccountUserByEmail(accountUserEmail);
+            AuthUserContextHolder.putCurrentUser(accountUserByEmail);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-        throws Exception {
+            throws Exception {
         //清理当前用户
         AuthUserContextHolder.removeCurrentUser();
     }

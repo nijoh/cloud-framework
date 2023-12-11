@@ -31,4 +31,12 @@ public class CloudConstant {
     /**************************** 系统属性 ************************************/
     //系统默认操作人员
     public static String SYSTEM_OPERATE="SYSTEM";
+
+    //表字段msDomain
+    public static String TABLE_NAME_MSDOMAIN="msDomain";
+
+    //表字段operator
+    public static String TABLE_NAME_OPERATOR="operator";
+
+
 }

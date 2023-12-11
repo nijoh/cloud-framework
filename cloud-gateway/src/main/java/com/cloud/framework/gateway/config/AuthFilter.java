@@ -7,7 +7,7 @@ import com.cloud.framework.model.auth.result.AccountUserDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.model.common.enums.HttpEnum;
 import com.cloud.framework.model.common.result.BaseResult;
-import com.cloud.framework.utils.AsserUtil;
+import com.cloud.framework.utils.AssertUtil;
 import com.cloud.framework.utils.DefaultUtil;
 import com.cloud.framework.utils.exceptions.AsserException;
 import io.jsonwebtoken.Claims;
@@ -53,7 +53,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
                 .defaultEditArrayList(exchange.getRequest().getHeaders().get(CloudConstant.REQUEST_AUTHORIZATION_TOKEN));
         try {
             // 获取系统所属域
-            AsserUtil.isEmpty(exchange.getRequest().getHeaders().get(CloudConstant.REQUEST_HEADER_DOMAIN), "获取系统属性失败");
+            AssertUtil.isEmpty(exchange.getRequest().getHeaders().get(CloudConstant.REQUEST_HEADER_DOMAIN), "获取系统属性失败");
             String authorizationToken = requestHeaderTokenList.stream().findFirst().orElse("");
             Claims claims = TokenUtil.parseJWT(authorizationToken);
             //账户信息

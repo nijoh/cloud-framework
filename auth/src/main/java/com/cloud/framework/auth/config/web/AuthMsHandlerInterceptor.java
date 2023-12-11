@@ -1,5 +1,6 @@
 package com.cloud.framework.auth.config.web;
 
+import com.alibaba.cloud.commons.lang.StringUtils;
 import com.cloud.framework.auth.service.AuthMsQueryService;
 import com.cloud.framework.integrate.auth.AuthUserContextHolder;
 import com.cloud.framework.model.auth.result.AuthMsDTO;
@@ -23,9 +24,12 @@ public class AuthMsHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //获取系统所属域
         String msDomain = request.getHeader(CloudConstant.REQUEST_HEADER_DOMAIN);
-        AuthMsDTO authMs = msQueryService.queryAuthMsByDomain(msDomain);
-        AuthUserContextHolder.putCurrentAuthMs(authMs);
-        return true;
+        if (StringUtils.isNotBlank(msDomain)) {
+            AuthMsDTO authMs = msQueryService.queryAuthMsByDomain(msDomain);
+            AuthUserContextHolder.putCurrentAuthMs(authMs);
+            return true;
+        }
+        return false;
     }
 
     @Override

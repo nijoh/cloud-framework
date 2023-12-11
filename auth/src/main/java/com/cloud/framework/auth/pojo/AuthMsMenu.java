@@ -3,6 +3,7 @@ package com.cloud.framework.auth.pojo;
 import com.cloud.framework.auth.pojo.enums.MenuTypeEnum;
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
+import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,9 +28,9 @@ public class AuthMsMenu implements Serializable {
     private Integer id;
 
     /**
-     * 系统id
+     * 系统域名
      */
-    private Integer msId;
+    private String msDomain;
 
     /**
      * 父菜单id
@@ -49,7 +50,7 @@ public class AuthMsMenu implements Serializable {
     /**
      * 菜单uri
      */
-    private String menuUri;
+    private String menuUrl;
 
     /**
      * 创建时间
@@ -70,9 +71,9 @@ public class AuthMsMenu implements Serializable {
 
     /**
      * 状态 1:启用, 0:关闭, -1:删除标识
-     * @see com.cloud.framework.model.common.enums.BaseStatus
+     * @see BaseStatusEnum
      */
-    private Boolean status;
+    private String status;
 
     /**
      * 菜单码

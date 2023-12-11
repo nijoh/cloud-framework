@@ -1,37 +1,46 @@
 package com.cloud.framework.auth.controller;
 
-import com.cloud.framework.auth.pojo.request.AddAuthMenuRequest;
-import com.cloud.framework.auth.service.AuthMenuService;
+import com.cloud.framework.auth.pojo.request.AuthRoleAddRequest;
+import com.cloud.framework.auth.service.AuthRoleService;
 import com.cloud.framework.model.common.base.ApiProcessor;
 import com.cloud.framework.model.common.base.BusinessTemplate;
+import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import com.cloud.framework.model.common.result.BaseResult;
+import com.cloud.framework.utils.AssertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 菜单管理
- * @author nijo_h
- * * @date 2023/3/30 11:27 下午
- */
 @RestController
-@RequestMapping("/meuns")
-public class AuthMenuController {
-    @Autowired
-    private AuthMenuService authMenuService;
+@RequestMapping("/roles")
+public class AuthRoleMangeController {
 
     /**
-     * 新增菜单
-     * */
+     * 系统角色Service
+     */
+    @Autowired
+    private AuthRoleService authRoleService;
+
+    /**
+     * 新增角色
+     * @param request 请求参数
+     * @return
+     */
     @PostMapping("/add")
-    public BaseResult addMenu(@RequestBody AddAuthMenuRequest request){
+    public BaseResult addMenu(@RequestBody @Validated AuthRoleAddRequest request){
         BaseResult baseResult = new BaseResult();
         ApiProcessor.processor(baseResult, new BusinessTemplate() {
             @Override
+            public void checkParam() {
+                AssertUtil.inEnum(request.getStatus(), BaseStatusEnum.class,"角色状态错误");
+            }
+
+            @Override
             public void processor() {
-                authMenuService.addMenu(request);
+                authRoleService.addRole(request);
             }
         });
         return baseResult;

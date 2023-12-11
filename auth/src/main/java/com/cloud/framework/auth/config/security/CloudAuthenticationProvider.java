@@ -1,7 +1,11 @@
 package com.cloud.framework.auth.config.security;
 
-import java.util.Collections;
-
+import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.service.AccountUserMangeService;
+import com.cloud.framework.auth.service.AccountUserQueryService;
+import com.cloud.framework.integrate.cache.RedisCacheTemplate;
+import com.cloud.framework.model.common.constant.CloudConstant;
+import com.cloud.framework.utils.AssertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,12 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.cloud.framework.auth.pojo.AccountUser;
-import com.cloud.framework.auth.service.AccountUserQueryService;
-import com.cloud.framework.auth.service.AccountUserMangeService;
-import com.cloud.framework.integrate.cache.RedisCacheTemplate;
-import com.cloud.framework.model.common.constant.CloudConstant;
-import com.cloud.framework.utils.AsserUtil;
+import java.util.Collections;
 
 /**
  * 登录认证逻辑
@@ -45,7 +44,7 @@ public class CloudAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         //查找用户
         AccountUser user = accountUserQueryService.findAccountUser(name);
-        AsserUtil.notNull(user, CloudConstant.AUTH_HMODEL,CloudConstant.NOT_ACCOUNTUSER);
+        AssertUtil.notNull(user, CloudConstant.NOT_ACCOUNTUSER);
         //比对密码
         boolean loginResult = passwordEncoder.matches(password, user.getPassword());
         if (loginResult) {

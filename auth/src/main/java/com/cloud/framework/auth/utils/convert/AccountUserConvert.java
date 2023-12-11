@@ -4,6 +4,7 @@ import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.integrate.auth.AuthUserContextHolder;
 import com.cloud.framework.model.auth.result.AccountUserDTO;
+import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import com.cloud.framework.utils.GenerateUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
 import org.springframework.beans.BeanUtils;
@@ -31,6 +32,7 @@ public class AccountUserConvert {
         accountUser.setPassword(bcryptPasswordEncoder.encode(PasswordEncrypt.encryptSHA256(request.getPassword())));
         accountUser.setMsDomain(AuthUserContextHolder.getCurrentMsDomain());
         accountUser.setOperate(AuthUserContextHolder.getOperate());
+        accountUser.setStatus(BaseStatusEnum.NORMAL.getCode());
         return accountUser;
     }
 
