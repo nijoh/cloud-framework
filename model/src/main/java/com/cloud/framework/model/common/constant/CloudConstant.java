@@ -21,6 +21,11 @@ public class CloudConstant {
     /********************************* DB错误   **********************************/
     public static String DB_INSERT_ERROR = "添加数据失败";
 
+    public static String DB_MODIFY_ERROR = "修改数据失败";
+
+    public static String DB_DELETE_ERROR = "删除数据失败";
+
+
     /********************************* 系统模版   **********************************/
     //auth模块
     public static String AUTH_HMODEL = "auth_model";

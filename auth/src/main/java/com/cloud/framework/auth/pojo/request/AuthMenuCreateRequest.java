@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class AuthMenuAddRequest implements Serializable {
+public class AuthMenuCreateRequest implements Serializable {
     private static final long serialVersionUID = -3032639022045169143L;
 
     /**

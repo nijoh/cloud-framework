@@ -80,9 +80,9 @@ public class AuthServiceImpl implements AuthService {
             @Override
             public void processor() {
                 int result = accountUserMapper.insertSelective(accountUser);
-                AssertUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, CloudConstant.DB_INSERT_ERROR);
+                AssertUtil.isTrue(result > 0,  CloudConstant.DB_INSERT_ERROR);
                 result=staffInfoMapper.insertSelective(staffInfo);
-                AssertUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, CloudConstant.DB_INSERT_ERROR);
+                AssertUtil.isTrue(result > 0, CloudConstant.DB_INSERT_ERROR);
             }
         });
     }

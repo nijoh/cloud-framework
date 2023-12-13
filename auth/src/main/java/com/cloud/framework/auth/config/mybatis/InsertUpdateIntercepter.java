@@ -20,7 +20,7 @@ import static com.cloud.framework.model.common.constant.CloudConstant.TABLE_NAME
 
 /**
  * Mybatis拦截器
- * 填充日期属性
+ * 填充日期属性、操作人、系统所属域
  *
  * @description @CreateTime 插入创建时间
  * @description @UpdateTime 插入更新时间

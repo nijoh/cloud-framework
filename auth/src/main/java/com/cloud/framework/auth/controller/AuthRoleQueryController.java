@@ -1,47 +1,48 @@
 package com.cloud.framework.auth.controller;
 
-import com.cloud.framework.auth.pojo.enums.MenuTypeEnum;
-import com.cloud.framework.auth.pojo.request.AuthMenuCreateRequest;
-import com.cloud.framework.auth.service.AuthMenuService;
+import com.alibaba.cloud.commons.lang.StringUtils;
+import com.cloud.framework.auth.pojo.request.RoleQueryRequest;
+import com.cloud.framework.auth.service.AuthRoleQueryService;
+import com.cloud.framework.model.auth.result.AuthRoleDTO;
 import com.cloud.framework.model.common.base.ApiProcessor;
 import com.cloud.framework.model.common.base.BusinessTemplate;
 import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import com.cloud.framework.model.common.result.BaseResult;
 import com.cloud.framework.utils.AssertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 菜单管理
- * @author nijo_h
- * * @date 2023/3/30 11:27 下午
- */
+import java.util.List;
+
 @RestController
-@RequestMapping("/meuns")
-public class AuthMenuMangerController {
+@RequestMapping("/roles")
+public class AuthRoleQueryController {
     @Autowired
-    private AuthMenuService authMenuService;
+    private AuthRoleQueryService roleQueryService;
 
     /**
-     * 新增菜单
-     * */
-    @PostMapping("/add")
-    public BaseResult addMenu(@RequestBody @Validated AuthMenuCreateRequest request){
+     * 查询系统角色
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/query")
+    public BaseResult<List<AuthRoleDTO>> queryRole(@RequestBody RoleQueryRequest request) {
         BaseResult baseResult = new BaseResult();
         ApiProcessor.processor(baseResult, new BusinessTemplate() {
             @Override
             public void checkParam() {
-                AssertUtil.inEnum(request.getStatus(), BaseStatusEnum.class,"菜单状态错误");
-                AssertUtil.inEnum(request.getMenuType(), MenuTypeEnum.class,"菜单类型错误");
+                if (StringUtils.isNotBlank(request.getStatus())){
+                    AssertUtil.inEnum(request.getStatus(), BaseStatusEnum.class, "角色状态错误");
+                }
             }
 
             @Override
             public void processor() {
-                authMenuService.addMenu(request);
+                baseResult.setContent(roleQueryService.queryRole(request));
             }
         });
         return baseResult;

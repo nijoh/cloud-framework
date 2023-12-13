@@ -2,7 +2,7 @@ package com.cloud.framework.auth.service.impl;
 
 import com.cloud.framework.auth.dal.AuthMsMenuMapper;
 import com.cloud.framework.auth.pojo.AuthMsMenu;
-import com.cloud.framework.auth.pojo.request.AuthMenuAddRequest;
+import com.cloud.framework.auth.pojo.request.AuthMenuCreateRequest;
 import com.cloud.framework.auth.service.AbstractBaseService;
 import com.cloud.framework.auth.service.AuthMenuService;
 import com.cloud.framework.auth.utils.TransactionProcessor;
@@ -23,16 +23,16 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
     private AuthMsMenuMapper menuMapper;
 
     /**
-     * @see com.cloud.framework.auth.service.AuthMenuService#addMenu(AuthMenuAddRequest)
+     * @see com.cloud.framework.auth.service.AuthMenuService#addMenu(AuthMenuCreateRequest)
      */
     @Override
-    public void addMenu(AuthMenuAddRequest request) {
+    public void addMenu(AuthMenuCreateRequest request) {
         AuthMsMenu authMsMenu = this.converAuthMsMenu(request);
         transactionService.processor(new TransactionProcessor() {
             @Override
             public void processor() {
                 int result =menuMapper.insertSelective(authMsMenu);
-                AssertUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, CloudConstant.DB_INSERT_ERROR);
+                AssertUtil.isTrue(result > 0, CloudConstant.DB_INSERT_ERROR);
             }
         });
     }
@@ -43,7 +43,7 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
      * @param request 模型
      * @return AuthMsMenu 表对象
      */
-    private AuthMsMenu converAuthMsMenu(AuthMenuAddRequest request){
+    private AuthMsMenu converAuthMsMenu(AuthMenuCreateRequest request){
         AuthMsMenu authMsMenu=new AuthMsMenu();
         BeanUtils.copyProperties(request,authMsMenu);
         return authMsMenu;

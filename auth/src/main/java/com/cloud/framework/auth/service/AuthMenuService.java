@@ -1,6 +1,6 @@
 package com.cloud.framework.auth.service;
 
-import com.cloud.framework.auth.pojo.request.AuthMenuAddRequest;
+import com.cloud.framework.auth.pojo.request.AuthMenuCreateRequest;
 
 /**
  * 菜单管理Service
@@ -12,5 +12,5 @@ public interface AuthMenuService {
      * 新增菜单
      * @param request 请求参数
      * */
-    void addMenu(AuthMenuAddRequest request);
+    void addMenu(AuthMenuCreateRequest request);
 }

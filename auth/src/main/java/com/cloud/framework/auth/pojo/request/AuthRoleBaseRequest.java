@@ -9,12 +9,12 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * 新增角色请求
+ * 角色请求
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class AuthRoleAddRequest implements Serializable {
+public class AuthRoleBaseRequest implements Serializable {
     private static final long serialVersionUID = 2039861536587161187L;
     /**
      * 角色名称
@@ -25,7 +25,6 @@ public class AuthRoleAddRequest implements Serializable {
     /**
      * 角色描述
      */
-    @NotBlank(message = "角色描述不能为空")
     private String roleDesc;
 
     /**

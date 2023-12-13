@@ -1,21 +1,18 @@
 package com.cloud.framework.auth.service.impl;
 
-import com.cloud.framework.utils.DefaultUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.dal.StaffInfoMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.pojo.request.DeleteUserRequest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AccountUserMangeService;
-import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.cloud.framework.auth.utils.TransactionProcessor;
 import com.cloud.framework.auth.utils.TransactionService;
-import com.cloud.framework.model.common.constant.CloudConstant;
+import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.cloud.framework.utils.AssertUtil;
-
+import com.cloud.framework.utils.DefaultUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
 
@@ -48,7 +45,7 @@ public class AccountUserMangeServiceImpl implements AccountUserMangeService {
             @Override
             public void processor() {
                 int result = accountUserMapper.insertSelective(accountUser);
-                AssertUtil.isTrue(result > 0, CloudConstant.AUTH_HMODEL, "保存账户信息表失败");
+                AssertUtil.isTrue(result > 0,  "保存账户信息表失败");
             }
         });
     }

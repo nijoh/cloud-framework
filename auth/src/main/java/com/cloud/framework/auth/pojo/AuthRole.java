@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class AuthRole implements Serializable {
     /**
      * 自增id
      */
+    @Id
     @GeneratedValue(generator = "JDBC")
     private Integer id;
 
@@ -57,7 +59,7 @@ public class AuthRole implements Serializable {
     private LocalDateTime updateTime;
 
     /**
-     * 状态 1:启用, 0:关闭, -1:删除标识
+     * 状态
      *
      * @see BaseStatusEnum
      */

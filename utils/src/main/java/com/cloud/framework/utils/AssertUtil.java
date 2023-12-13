@@ -64,12 +64,23 @@ public class AssertUtil {
      * 断言必须True,否则异常
      *
      * @param obj   断言内容
-     * @param model 模块
      * @param msg   异常信息
      */
-    public static void isTrue(Boolean obj, String model, String msg) {
+    public static void isTrue(Boolean obj, String msg,Object... value) {
         if (!obj) {
-            throw new AsserException(msg);
+            throw new AsserException(String.format(msg,value));
+        }
+    }
+
+    /**
+     * 断言必须False,否则异常
+     *
+     * @param obj   断言内容
+     * @param msg   异常信息
+     */
+    public static void isFalse(Boolean obj,String msg,Object... value) {
+        if (obj) {
+            throw new AsserException(String.format(msg,value));
         }
     }
 

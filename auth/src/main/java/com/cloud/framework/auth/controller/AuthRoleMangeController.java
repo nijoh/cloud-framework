@@ -1,6 +1,8 @@
 package com.cloud.framework.auth.controller;
 
-import com.cloud.framework.auth.pojo.request.AuthRoleAddRequest;
+import com.cloud.framework.auth.pojo.request.AuthRoleCreateRequest;
+import com.cloud.framework.auth.pojo.request.AuthRoleDeleteRequest;
+import com.cloud.framework.auth.pojo.request.AuthRoleModifyRequest;
 import com.cloud.framework.auth.service.AuthRoleService;
 import com.cloud.framework.model.common.base.ApiProcessor;
 import com.cloud.framework.model.common.base.BusinessTemplate;
@@ -26,16 +28,17 @@ public class AuthRoleMangeController {
 
     /**
      * 新增角色
+     *
      * @param request 请求参数
      * @return
      */
     @PostMapping("/add")
-    public BaseResult addMenu(@RequestBody @Validated AuthRoleAddRequest request){
+    public BaseResult addRole(@RequestBody @Validated AuthRoleCreateRequest request) {
         BaseResult baseResult = new BaseResult();
         ApiProcessor.processor(baseResult, new BusinessTemplate() {
             @Override
             public void checkParam() {
-                AssertUtil.inEnum(request.getStatus(), BaseStatusEnum.class,"角色状态错误");
+                AssertUtil.inEnum(request.getStatus(), BaseStatusEnum.class, "角色状态错误");
             }
 
             @Override
@@ -45,4 +48,47 @@ public class AuthRoleMangeController {
         });
         return baseResult;
     }
+
+    /**
+     * 修改角色
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/modify")
+    public BaseResult modifyRole(@RequestBody @Validated AuthRoleModifyRequest request) {
+        BaseResult baseResult = new BaseResult();
+        ApiProcessor.processor(baseResult, new BusinessTemplate() {
+            @Override
+            public void checkParam() {
+                AssertUtil.inEnum(request.getStatus(), BaseStatusEnum.class, "角色状态错误");
+            }
+
+            @Override
+            public void processor() {
+                authRoleService.modifyRole(request);
+            }
+        });
+        return baseResult;
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/delete")
+    public BaseResult deleteRole(@RequestBody @Validated AuthRoleDeleteRequest request) {
+        BaseResult baseResult = new BaseResult();
+        ApiProcessor.processor(baseResult, new BusinessTemplate() {
+            @Override
+            public void processor() {
+                authRoleService.deleteRole(request);
+            }
+        });
+        return baseResult;
+    }
+
+
 }
