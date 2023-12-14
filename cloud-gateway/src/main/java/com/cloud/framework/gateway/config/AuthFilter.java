@@ -53,7 +53,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
                 .defaultEditArrayList(exchange.getRequest().getHeaders().get(CloudConstant.REQUEST_AUTHORIZATION_TOKEN));
         try {
             // 获取系统所属域
-            AssertUtil.isEmpty(exchange.getRequest().getHeaders().get(CloudConstant.REQUEST_HEADER_DOMAIN), "获取系统属性失败");
+            AssertUtil.notEmpty(exchange.getRequest().getHeaders().get(CloudConstant.REQUEST_HEADER_DOMAIN), "获取系统属性失败");
             String authorizationToken = requestHeaderTokenList.stream().findFirst().orElse("");
             Claims claims = TokenUtil.parseJWT(authorizationToken);
             //账户信息

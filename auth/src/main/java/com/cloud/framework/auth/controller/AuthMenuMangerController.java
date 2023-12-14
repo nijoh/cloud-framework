@@ -2,6 +2,8 @@ package com.cloud.framework.auth.controller;
 
 import com.cloud.framework.auth.pojo.enums.MenuTypeEnum;
 import com.cloud.framework.auth.pojo.request.AuthMenuCreateRequest;
+import com.cloud.framework.auth.pojo.request.AuthMenuDeleteRequest;
+import com.cloud.framework.auth.pojo.request.AuthMenuModifyRequest;
 import com.cloud.framework.auth.service.AuthMenuService;
 import com.cloud.framework.model.common.base.ApiProcessor;
 import com.cloud.framework.model.common.base.BusinessTemplate;
@@ -28,7 +30,9 @@ public class AuthMenuMangerController {
 
     /**
      * 新增菜单
-     * */
+     * @param request
+     * @return
+     */
     @PostMapping("/add")
     public BaseResult addMenu(@RequestBody @Validated AuthMenuCreateRequest request){
         BaseResult baseResult = new BaseResult();
@@ -46,4 +50,45 @@ public class AuthMenuMangerController {
         });
         return baseResult;
     }
+
+    /**
+     * 修改菜单
+     * @param request
+     * @return
+     */
+    @PostMapping("/modify")
+    public BaseResult modifyMenu(@RequestBody @Validated AuthMenuModifyRequest request){
+        BaseResult baseResult = new BaseResult();
+        ApiProcessor.processor(baseResult, new BusinessTemplate() {
+            @Override
+            public void checkParam() {
+                AssertUtil.inEnum(request.getStatus(), BaseStatusEnum.class,"菜单状态错误");
+                AssertUtil.inEnum(request.getMenuType(), MenuTypeEnum.class,"菜单类型错误");
+            }
+
+            @Override
+            public void processor() {
+                authMenuService.modifyMenu(request);
+            }
+        });
+        return baseResult;
+    }
+
+    /**
+     * 修改菜单
+     * @param request
+     * @return
+     */
+    @PostMapping("/delete")
+    public BaseResult deleteMenu(@RequestBody @Validated AuthMenuDeleteRequest request){
+        BaseResult baseResult = new BaseResult();
+        ApiProcessor.processor(baseResult, new BusinessTemplate() {
+            @Override
+            public void processor() {
+                authMenuService.deleteMenu(request);
+            }
+        });
+        return baseResult;
+    }
+
 }

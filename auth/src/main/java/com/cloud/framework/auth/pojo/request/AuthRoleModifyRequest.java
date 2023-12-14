@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 角色修改请求
  */
@@ -15,6 +17,7 @@ public class AuthRoleModifyRequest extends AuthRoleBaseRequest{
     /**
      * 角色ID
      * */
+    @NotNull(message = "角色ID不能为空")
     private Integer roleId;
     /**
      * serialVersionUID

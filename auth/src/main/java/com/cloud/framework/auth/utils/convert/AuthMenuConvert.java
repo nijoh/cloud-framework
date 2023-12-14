@@ -20,11 +20,11 @@ public class AuthMenuConvert {
      */
     public static AuthMenuDTO converToDTOModel(AuthMsMenu authMsMenu) {
         AuthMenuDTO authMenuDTO = new AuthMenuDTO();
-        authMenuDTO.setId(authMsMenu.getId());
+        authMenuDTO.setMenuId(authMsMenu.getId());
         authMenuDTO.setParentId(authMsMenu.getParentId());
         authMenuDTO.setMenuName(authMsMenu.getMenuName());
         authMenuDTO.setMenuDesc(authMsMenu.getMenuDesc());
-        authMenuDTO.setMenuUri(authMsMenu.getMenuUrl());
+        authMenuDTO.setMenuUrl(authMsMenu.getMenuUrl());
         authMenuDTO.setMenuCode(authMsMenu.getMenuCode());
         authMenuDTO.setMenuType(authMsMenu.getMenuType());
         return authMenuDTO;
@@ -50,11 +50,11 @@ public class AuthMenuConvert {
      */
     public static AuthMenuTreeDTO  converToTreeDTOModel(AuthMsMenu authMsMenu){
         AuthMenuTreeDTO authMenuTreeDTO = new AuthMenuTreeDTO();
-        authMenuTreeDTO.setId(authMsMenu.getId());
+        authMenuTreeDTO.setMenuId(authMsMenu.getId());
         authMenuTreeDTO.setParentId(authMsMenu.getParentId());
         authMenuTreeDTO.setMenuName(authMsMenu.getMenuName());
         authMenuTreeDTO.setMenuDesc(authMsMenu.getMenuDesc());
-        authMenuTreeDTO.setMenuUri(authMsMenu.getMenuUrl());
+        authMenuTreeDTO.setMenuUrl(authMsMenu.getMenuUrl());
         authMenuTreeDTO.setMenuCode(authMsMenu.getMenuCode());
         authMenuTreeDTO.setMenuType(authMsMenu.getMenuType());
         return authMenuTreeDTO;

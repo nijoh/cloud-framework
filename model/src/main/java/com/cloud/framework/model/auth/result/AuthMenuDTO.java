@@ -21,12 +21,7 @@ public class AuthMenuDTO implements Serializable {
     /**
      * 菜单id
      * */
-    private Integer id;
-
-    /**
-     * 系统id
-     */
-    private Integer msId;
+    private Integer menuId;
 
     /**
      * 父菜单id
@@ -44,9 +39,9 @@ public class AuthMenuDTO implements Serializable {
     private String menuDesc;
 
     /**
-     * 菜单uri
+     * 菜单url
      */
-    private String menuUri;
+    private String menuUrl;
 
     /**
      * 菜单码

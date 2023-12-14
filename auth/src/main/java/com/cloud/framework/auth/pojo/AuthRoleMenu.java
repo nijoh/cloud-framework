@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class AuthRoleMenu implements Serializable {
      * 自增id
      */
     @GeneratedValue(generator = "JDBC")
+    @Id
     private Integer id;
 
     /**

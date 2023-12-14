@@ -6,6 +6,7 @@ import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import lombok.*;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class AuthMs implements Serializable {
      * 自增id
      */
     @GeneratedValue(generator = "JDBC")
+    @Id
     private Integer id;
 
     /**
