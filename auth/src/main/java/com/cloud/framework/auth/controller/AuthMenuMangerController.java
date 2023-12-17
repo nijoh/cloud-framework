@@ -75,7 +75,7 @@ public class AuthMenuMangerController {
     }
 
     /**
-     * 修改菜单
+     * 删除菜单
      * @param request
      * @return
      */

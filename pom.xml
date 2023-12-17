@@ -28,6 +28,7 @@
         <pagehelper-version>1.3.0</pagehelper-version>
         <commons-lang3-version>3.12.0</commons-lang3-version>
         <jjwt-version>0.9.1</jjwt-version>
+        <hutool-core-version>5.8.23</hutool-core-version>
     </properties>
     <packaging>pom</packaging>
     <modules>
@@ -119,6 +120,12 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool-core-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
