@@ -4,6 +4,7 @@ import cn.hutool.core.util.ReflectUtil;
 import com.alibaba.cloud.commons.lang.StringUtils;
 import com.cloud.framework.integrate.auth.AuthUserContextHolder;
 import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -23,6 +24,8 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 
 import java.sql.Connection;
+import java.util.Objects;
+import java.util.Optional;
 
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
 public class QueryInterceptor implements Interceptor {
@@ -53,6 +56,7 @@ public class QueryInterceptor implements Interceptor {
     private void addWhere(PlainSelect selectBody) {
         try {
             Table fromItem = (Table) selectBody.getFromItem();
+            String aliasName = Optional.ofNullable(fromItem.getAlias()).orElse(new Alias("")).getName();
             String name = fromItem.getName();
             if (!StringUtils.equals(name, "auth_ms")) {
                 String stringExpression = "";
@@ -65,7 +69,14 @@ public class QueryInterceptor implements Interceptor {
                 //如果字段搜索条件为空则搜索字段为空或指定数据
                 StringBuilder sqlFilter = new StringBuilder(128);
                 if (stringExpression.indexOf("ms_domain") == -1) {
-                    sqlFilter.append(String.format("ms_domain='%s'", AuthUserContextHolder.getCurrentMsDomain()));
+                    //单表 没有别名
+                    if (Objects.isNull(fromItem.getAlias())) {
+                        sqlFilter.append(String.format("ms_domain='%s'", AuthUserContextHolder.getCurrentMsDomain()));
+                    } else {
+                        //连表 别名
+                        sqlFilter.append(String.format("%sms_domain='%s'", aliasName + ".", AuthUserContextHolder.getCurrentMsDomain()));
+                    }
+
                     buildWhereClause(selectBody, sqlFilter.toString());
                 }
             }

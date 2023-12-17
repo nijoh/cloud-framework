@@ -58,6 +58,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
             Claims claims = TokenUtil.parseJWT(authorizationToken);
             //账户信息
             AccountUserDTO accountUserDTO = JSON.parseObject(claims.getSubject(), AccountUserDTO.class);
+            //当前用户必须和所属域一致
+            List<String> requestList = exchange.getRequest().getHeaders().get(CloudConstant.REQUEST_HEADER_DOMAIN);
+            AssertUtil.equals(accountUserDTO.getMsDomain(),requestList.get(0),"请求用户非法");
+
             //添加头信息
             exchange = addHeader(exchange, REQUEST_HEADER_ACCOUNTUSEREMAIL, accountUserDTO.getEmail());
         } catch (AsserException asserException) {

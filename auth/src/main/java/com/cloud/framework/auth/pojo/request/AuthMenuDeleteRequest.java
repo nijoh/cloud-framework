@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +11,12 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class AuthMenuDeleteRequest implements Serializable {
+public class AuthMenuDeleteRequest extends BaseRequest {
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 8839367588318166969L;
+
     /**
      * 菜单ID
      */

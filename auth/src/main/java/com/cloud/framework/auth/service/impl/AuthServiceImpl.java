@@ -4,12 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.dal.StaffInfoMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.pojo.AuthOperateContent;
 import com.cloud.framework.auth.pojo.StaffInfo;
 import com.cloud.framework.auth.pojo.request.LoginUserRequest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
+import com.cloud.framework.auth.service.AbstractBaseService;
 import com.cloud.framework.auth.service.AuthService;
 import com.cloud.framework.auth.utils.TransactionProcessor;
-import com.cloud.framework.auth.utils.TransactionService;
 import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.cloud.framework.integrate.auth.TokenUtil;
 import com.cloud.framework.model.auth.result.AccountUserDTO;
@@ -26,12 +27,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import static com.cloud.framework.auth.utils.convert.AccountUserConvert.buildConverDOFromRequst;
+import static com.cloud.framework.model.common.constant.OperateTypeConstant.ACCOUNT_USER_CREATE;
 
 /**
  * 系统授权ServiceImpl
  */
 @Service
-public class AuthServiceImpl implements AuthService {
+public class AuthServiceImpl extends AbstractBaseService implements AuthService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -42,9 +44,6 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private StaffInfoMapper staffInfoMapper;
 
-    //DB事务执行模版
-    @Autowired
-    private TransactionService transactionService;
 
     /**
      * @see com.cloud.framework.auth.service.AuthService#login(LoginUserRequest request)
@@ -75,10 +74,16 @@ public class AuthServiceImpl implements AuthService {
     public void regist(RegistAccountUserRequest request) {
         AccountUser accountUser = buildConverDOFromRequst(request);
         StaffInfo staffInfo = converStaffInfo(request, accountUser.getId());
-        transactionService.processor(new TransactionProcessor() {
+        transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
-            public void processor() {
+            public AuthOperateContent saveOrder() {
+                operateOrderService.createOperateOrder(request.getBizNo(),ACCOUNT_USER_CREATE);
+                return new AuthOperateContent();
+            }
+
+            @Override
+            public void processor(AuthOperateContent content) {
                 int result = accountUserMapper.insertSelective(accountUser);
                 AssertUtil.isTrue(result > 0,  CloudConstant.DB_INSERT_ERROR);
                 result=staffInfoMapper.insertSelective(staffInfo);

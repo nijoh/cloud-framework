@@ -6,15 +6,17 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * 保存账户信息请求
  * */
 @Getter
 @Setter
-public class RegistAccountUserRequest implements Serializable {
+public class RegistAccountUserRequest extends BaseRequest {
 
+    /**
+     * serialVersionUID
+     */
     private static final long serialVersionUID = 4628135663377598437L;
 
     /**

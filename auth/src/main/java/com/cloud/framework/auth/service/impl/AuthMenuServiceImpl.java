@@ -3,6 +3,7 @@ package com.cloud.framework.auth.service.impl;
 import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.cloud.framework.auth.dal.AuthMsMenuMapper;
 import com.cloud.framework.auth.pojo.AuthMsMenu;
+import com.cloud.framework.auth.pojo.AuthOperateContent;
 import com.cloud.framework.auth.pojo.request.AuthMenuBaseRequest;
 import com.cloud.framework.auth.pojo.request.AuthMenuCreateRequest;
 import com.cloud.framework.auth.pojo.request.AuthMenuDeleteRequest;
@@ -22,6 +23,8 @@ import tk.mybatis.mapper.weekend.WeekendSqls;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.cloud.framework.model.common.constant.OperateTypeConstant.*;
 
 /**
  * 菜单管理impl
@@ -43,7 +46,7 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
     @Override
     public void addMenu(AuthMenuCreateRequest request) {
         AuthMsMenu authMsMenu = this.converAuthMsMenu(request);
-        transactionService.processor(new TransactionProcessor() {
+        transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
             public void checkBiz() {
@@ -55,7 +58,13 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
             }
 
             @Override
-            public void processor() {
+            public AuthOperateContent saveOrder() {
+                operateOrderService.createOperateOrder(request.getBizNo(),AUTH_MENU_CREATE);
+                return new AuthOperateContent();
+            }
+
+            @Override
+            public void processor(AuthOperateContent content) {
                 int result = menuMapper.insertSelective(authMsMenu);
                 AssertUtil.isTrue(result > 0, CloudConstant.DB_INSERT_ERROR);
             }
@@ -69,7 +78,7 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
     public void modifyMenu(AuthMenuModifyRequest request) {
         AuthMsMenu authMsMenu = this.converAuthMsMenu(request);
         authMsMenu.setId(request.getMenuId());
-        transactionService.processor(new TransactionProcessor() {
+        transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
             public void checkBiz() {
@@ -81,7 +90,13 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
             }
 
             @Override
-            public void processor() {
+            public AuthOperateContent saveOrder() {
+                operateOrderService.createOperateOrder(request.getBizNo(),AUTH_MENU_MODIFY);
+                return new AuthOperateContent();
+            }
+
+            @Override
+            public void processor(AuthOperateContent content) {
                 int result = menuMapper.updateByPrimaryKeySelective(authMsMenu);
                 AssertUtil.isTrue(result > 0, CloudConstant.DB_MODIFY_ERROR);
             }
@@ -94,7 +109,7 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
      */
     @Override
     public void deleteMenu(AuthMenuDeleteRequest request) {
-        transactionService.processor(new TransactionProcessor() {
+        transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
             public void checkBiz() {
@@ -112,7 +127,13 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
             }
 
             @Override
-            public void processor() {
+            public AuthOperateContent saveOrder() {
+                operateOrderService.createOperateOrder(request.getBizNo(),AUTH_MENU_DELETE);
+                return new AuthOperateContent();
+            }
+
+            @Override
+            public void processor(AuthOperateContent content) {
                 int result = menuMapper.deleteByExample(deleteMenuExample(request.getMenuId()));
                 AssertUtil.isTrue(result > 0, CloudConstant.DB_MODIFY_ERROR);
             }

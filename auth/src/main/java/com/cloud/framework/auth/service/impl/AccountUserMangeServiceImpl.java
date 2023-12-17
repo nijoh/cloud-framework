@@ -3,12 +3,12 @@ package com.cloud.framework.auth.service.impl;
 import com.cloud.framework.auth.dal.AccountUserMapper;
 import com.cloud.framework.auth.dal.StaffInfoMapper;
 import com.cloud.framework.auth.pojo.AccountUser;
+import com.cloud.framework.auth.pojo.AuthOperateContent;
 import com.cloud.framework.auth.pojo.request.DeleteUserRequest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
+import com.cloud.framework.auth.service.AbstractBaseService;
 import com.cloud.framework.auth.service.AccountUserMangeService;
 import com.cloud.framework.auth.utils.TransactionProcessor;
-import com.cloud.framework.auth.utils.TransactionService;
-import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.cloud.framework.utils.AssertUtil;
 import com.cloud.framework.utils.DefaultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,19 @@ import tk.mybatis.mapper.weekend.WeekendSqls;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.cloud.framework.auth.utils.convert.AccountUserConvert.buildConverDOFromRequst;
+import static com.cloud.framework.model.common.constant.OperateTypeConstant.ACCOUNT_USER_CREATE;
+import static com.cloud.framework.model.common.constant.OperateTypeConstant.ACCOUNT_USER_DELETE;
+
 /**
  * 账户信息ServiceImpl
  */
 @Service
-public class AccountUserMangeServiceImpl implements AccountUserMangeService {
+public class AccountUserMangeServiceImpl extends AbstractBaseService implements AccountUserMangeService {
     // 账户信息Mapper
     @Autowired
     private AccountUserMapper accountUserMapper;
 
-    // DB事务模版
-    @Autowired
-    private TransactionService transactionService;
 
     @Autowired
     private StaffInfoMapper staffInfoMapper;
@@ -40,11 +41,16 @@ public class AccountUserMangeServiceImpl implements AccountUserMangeService {
      */
     @Override
     public void saveAccountUser(RegistAccountUserRequest request) {
-        AccountUser accountUser = AccountUserConvert.buildConverDOFromRequst(request);
-        transactionService.processor(new TransactionProcessor() {
+        transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
             @Override
-            public void processor() {
-                int result = accountUserMapper.insertSelective(accountUser);
+            public AuthOperateContent saveOrder() {
+                operateOrderService.createOperateOrder(request.getBizNo(),ACCOUNT_USER_CREATE);
+                return new AuthOperateContent();
+            }
+
+            @Override
+            public void processor(AuthOperateContent content) {
+                int result = accountUserMapper.insertSelective(buildConverDOFromRequst(request));
                 AssertUtil.isTrue(result > 0,  "保存账户信息表失败");
             }
         });
@@ -58,10 +64,15 @@ public class AccountUserMangeServiceImpl implements AccountUserMangeService {
         List<AccountUser> accountUsers = DefaultUtil.defaultEditArrayList(
             accountUserMapper.selectByExample(selectExampleByAccountUser(request.getEmailList())));
         List<String> accountUserIdList = accountUsers.stream().map(AccountUser::getId).collect(Collectors.toList());
-        transactionService.processor(new TransactionProcessor() {
+        transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
+            @Override
+            public AuthOperateContent saveOrder() {
+                operateOrderService.createOperateOrder(request.getBizNo(),ACCOUNT_USER_DELETE);
+                return new AuthOperateContent();
+            }
 
             @Override
-            public void processor() {
+            public void processor(AuthOperateContent content) {
                 accountUserMapper.deleteListAccountUserById(accountUserIdList);
                 staffInfoMapper.deleteListStaffInfoByUserId(accountUserIdList);
             }

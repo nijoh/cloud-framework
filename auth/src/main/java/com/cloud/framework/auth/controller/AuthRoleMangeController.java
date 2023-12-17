@@ -3,6 +3,7 @@ package com.cloud.framework.auth.controller;
 import com.cloud.framework.auth.pojo.request.AuthRoleCreateRequest;
 import com.cloud.framework.auth.pojo.request.AuthRoleDeleteRequest;
 import com.cloud.framework.auth.pojo.request.AuthRoleModifyRequest;
+import com.cloud.framework.auth.pojo.request.AuthorizeMenusRequest;
 import com.cloud.framework.auth.service.AuthRoleService;
 import com.cloud.framework.model.common.base.ApiProcessor;
 import com.cloud.framework.model.common.base.BusinessTemplate;
@@ -85,6 +86,24 @@ public class AuthRoleMangeController {
             @Override
             public void processor() {
                 authRoleService.deleteRole(request);
+            }
+        });
+        return baseResult;
+    }
+
+    /**
+     * 授权角色菜单
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/authorizeMenus")
+    public BaseResult authorizeMenus(@RequestBody @Validated AuthorizeMenusRequest request) {
+        BaseResult baseResult = new BaseResult();
+        ApiProcessor.processor(baseResult, new BusinessTemplate() {
+            @Override
+            public void processor() {
+                authRoleService.authorizeMenus(request);
             }
         });
         return baseResult;

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 /**
  * 角色请求
@@ -14,7 +13,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AuthRoleBaseRequest implements Serializable {
+public class AuthRoleBaseRequest extends BaseRequest {
+    /**
+     * serialVersionUID
+     */
     private static final long serialVersionUID = 2039861536587161187L;
     /**
      * 角色名称

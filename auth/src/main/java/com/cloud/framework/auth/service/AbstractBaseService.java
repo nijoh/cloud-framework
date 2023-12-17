@@ -9,4 +9,10 @@ public abstract class AbstractBaseService{
     @Autowired
     protected TransactionService transactionService;
 
+    /**
+     * 订单操作流水
+     */
+    @Autowired
+    protected AuthOperateOrderService operateOrderService;
+
 }

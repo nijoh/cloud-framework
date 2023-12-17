@@ -4,7 +4,9 @@ import com.cloud.framework.auth.pojo.enums.MenuTypeEnum;
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
 import com.cloud.framework.model.common.enums.BaseStatusEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
@@ -21,6 +23,8 @@ import java.time.LocalDateTime;
 @Table(name ="auth_ms_menu")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthMsMenu implements Serializable {
     /**
      * 自增id
