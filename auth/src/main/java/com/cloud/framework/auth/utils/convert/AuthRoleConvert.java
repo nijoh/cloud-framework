@@ -38,6 +38,7 @@ public class AuthRoleConvert {
         authRoleDTO.setCreateTime(authRole.getCreateTime());
         authRoleDTO.setOperator(authRole.getOperator());
         authRoleDTO.setStatus(authRole.getStatus());
+        authRoleDTO.setRoleId(authRole.getId());
         return authRoleDTO;
     }
 }

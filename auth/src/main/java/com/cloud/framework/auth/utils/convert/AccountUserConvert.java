@@ -31,7 +31,7 @@ public class AccountUserConvert {
         accountUser.setId(GenerateUtil.generateAccountId());
         accountUser.setPassword(bcryptPasswordEncoder.encode(PasswordEncrypt.encryptSHA256(request.getPassword())));
         accountUser.setMsDomain(AuthUserContextHolder.getCurrentMsDomain());
-        accountUser.setOperate(AuthUserContextHolder.getOperate());
+        accountUser.setOperator(AuthUserContextHolder.getOperate());
         accountUser.setStatus(BaseStatusEnum.NORMAL.getCode());
         return accountUser;
     }
@@ -45,7 +45,6 @@ public class AccountUserConvert {
         AccountUserDTO accountUserDTO = new AccountUserDTO();
         accountUserDTO.setEmail(accountUser.getEmail());
         accountUserDTO.setPhone(accountUser.getPhone());
-        accountUserDTO.setUsername(accountUser.getUsername());
         accountUserDTO.setCreateTime(accountUser.getCreateTime());
         accountUserDTO.setLastLoginTime(accountUser.getLastLoginTime());
         accountUserDTO.setLoginIp(accountUser.getLoginIp());

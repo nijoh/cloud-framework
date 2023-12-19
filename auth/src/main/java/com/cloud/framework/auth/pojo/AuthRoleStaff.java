@@ -2,6 +2,7 @@ package com.cloud.framework.auth.pojo;
 
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
+import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,11 +49,11 @@ public class AuthRoleStaff implements Serializable {
     @UpdateTime
     private LocalDateTime updateTime;
 
-//    /**
-//     * 状态
-//     * @see BaseStatusEnum
-//     */
-//    private String status;
+    /**
+     * 状态
+     * @see BaseStatusEnum
+     */
+    private String status;
 
     /**
      * 操作人

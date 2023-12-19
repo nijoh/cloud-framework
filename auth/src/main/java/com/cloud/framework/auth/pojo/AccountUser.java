@@ -40,11 +40,6 @@ public class AccountUser implements Serializable {
     private String phone;
 
     /**
-     * 用户名
-     */
-    private String username;
-
-    /**
      * 密码
      */
     private String password;
@@ -80,7 +75,7 @@ public class AccountUser implements Serializable {
     /**
      * 操作人
      */
-    private String operate;
+    private String operator;
 
     /**
      * 系统域名

@@ -1,5 +1,6 @@
 package com.cloud.framework.auth.controller;
 
+import com.cloud.framework.auth.pojo.request.AuthorizeRoleRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,16 +27,35 @@ public class AccountUserMangeController {
 
     /**
      * 删除用户账户
+     *
      * @param request
      * @return
      */
     @PostMapping("/delete")
-    public BaseResult deleteAccountUser(@RequestBody @Validated DeleteUserRequest request){
-        BaseResult result =new BaseResult<>();
+    public BaseResult deleteAccountUser(@RequestBody @Validated DeleteUserRequest request) {
+        BaseResult result = new BaseResult<>();
         ApiProcessor.processor(result, new BusinessTemplate() {
             @Override
             public void processor() {
                 accountUserMangeService.deleteAccountUser(request);
+            }
+        });
+        return result;
+    }
+
+
+    /**
+     * 授权员工角色
+     *
+     * @param request
+     */
+    @PostMapping("/authorizeRole")
+    public BaseResult authorizeRole(@RequestBody @Validated AuthorizeRoleRequest request) {
+        BaseResult result = new BaseResult<>();
+        ApiProcessor.processor(result, new BusinessTemplate() {
+            @Override
+            public void processor() {
+                accountUserMangeService.authorizeRole(request);
             }
         });
         return result;

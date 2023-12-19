@@ -31,5 +31,8 @@ public class OperateTypeConstant {
     //角色删除
     public static String AUTH_ROLE_DELETE = "AuthRoleDelete";
 
+    //授权员工角色
+    public static String AUTH_AUTHORIZE_ROLE = "AuthAuthorizeRole";
+
 
 }

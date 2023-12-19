@@ -1,7 +1,7 @@
 package com.cloud.framework.integrate.auth;
 
-import com.cloud.framework.model.auth.result.AccountUserDTO;
 import com.cloud.framework.model.auth.result.AuthMsDTO;
+import com.cloud.framework.model.auth.result.UserInfoDetailDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
 
 import java.util.Optional;
@@ -14,7 +14,7 @@ public class AuthUserContextHolder {
     }
 
     //用户信息
-    private static final ThreadLocal<AccountUserDTO> threadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<UserInfoDetailDTO> threadLocal = new ThreadLocal<>();
 
     //所属域
     private static final ThreadLocal<AuthMsDTO> authMsThreadLocal = new ThreadLocal<>();
@@ -24,7 +24,7 @@ public class AuthUserContextHolder {
      *
      * @param accountUser
      */
-    public static void putCurrentUser(AccountUserDTO accountUser) {
+    public static void setCurrentUser(UserInfoDetailDTO accountUser) {
         threadLocal.set(accountUser);
     }
 
@@ -33,7 +33,7 @@ public class AuthUserContextHolder {
      *
      * @return
      */
-    public static AccountUserDTO getCurrentUser() {
+    public static UserInfoDetailDTO getCurrentUser() {
         return threadLocal.get();
     }
 
@@ -43,10 +43,10 @@ public class AuthUserContextHolder {
      */
     public static String getOperate(){
        return Optional.ofNullable(getCurrentUser()).orElseGet(()->{
-            AccountUserDTO accountUserDTO = new AccountUserDTO();
-            accountUserDTO.setUsername(CloudConstant.SYSTEM_OPERATE);
+           UserInfoDetailDTO accountUserDTO = new UserInfoDetailDTO();
+            accountUserDTO.setStaffName(CloudConstant.SYSTEM_OPERATE);
             return accountUserDTO;
-        }).getUsername();
+        }).getStaffName();
     }
 
     /**

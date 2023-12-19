@@ -10,5 +10,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AuthRoleStaffMapper extends MyBaseMapper<AuthRoleStaff> {
+    /**
+     * 删除员工授权角色
+     * @param staffId
+     */
+    void deleteByStaffId(Integer staffId);
 
 }

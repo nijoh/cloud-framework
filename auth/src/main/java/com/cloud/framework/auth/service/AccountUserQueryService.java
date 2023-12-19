@@ -3,6 +3,7 @@ package com.cloud.framework.auth.service;
 import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.pojo.request.QueryUserReuqest;
 import com.cloud.framework.model.auth.result.AccountUserDTO;
+import com.cloud.framework.model.auth.result.UserInfoDetailDTO;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -34,4 +35,16 @@ public interface AccountUserQueryService {
      * @return
      */
     PageInfo queryPage(QueryUserReuqest queryUserReuqest);
+
+    /**
+     * 查询用户详细信息
+     * @param staffId 员工ID
+     */
+    UserInfoDetailDTO queryUserInfoDetail(Integer staffId);
+
+    /**
+     * 查询用户详细信息
+     * @param emial 账户邮箱
+     */
+    UserInfoDetailDTO queryUserInfoDetail(String emial);
 }

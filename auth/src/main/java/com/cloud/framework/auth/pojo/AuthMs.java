@@ -53,7 +53,7 @@ public class AuthMs implements Serializable {
     /**
      * 操作人
      */
-    private String operate;
+    private String operator;
 
     /**
      * 更新时间

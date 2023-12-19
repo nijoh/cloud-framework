@@ -13,12 +13,17 @@ import lombok.Setter;
 @Setter
 public class QueryUserReuqest extends BasePage {
     /**
-     * 用户名
+     * 员工名称
      * */
-    private String username;
+    private String staffName;
 
     /**
      * 创建时间
      * */
     private String createTime;
+
+    /**
+     * 账户状态
+     */
+    private String status;
 }

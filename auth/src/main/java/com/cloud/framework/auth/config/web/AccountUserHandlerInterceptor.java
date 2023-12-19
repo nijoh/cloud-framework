@@ -3,7 +3,7 @@ package com.cloud.framework.auth.config.web;
 import com.alibaba.cloud.commons.lang.StringUtils;
 import com.cloud.framework.auth.service.AccountUserQueryService;
 import com.cloud.framework.integrate.auth.AuthUserContextHolder;
-import com.cloud.framework.model.auth.result.AccountUserDTO;
+import com.cloud.framework.model.auth.result.UserInfoDetailDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,8 +27,8 @@ public class AccountUserHandlerInterceptor implements HandlerInterceptor {
         //设置当前登录用户
         String accountUserEmail = request.getHeader(CloudConstant.REQUEST_HEADER_ACCOUNTUSEREMAIL);
         if (StringUtils.isNotBlank(accountUserEmail)) {
-            AccountUserDTO accountUserByEmail = accountUserQueryService.findAccountUserByEmail(accountUserEmail);
-            AuthUserContextHolder.putCurrentUser(accountUserByEmail);
+            UserInfoDetailDTO userInfoDetai = accountUserQueryService.queryUserInfoDetail(accountUserEmail);
+            AuthUserContextHolder.setCurrentUser(userInfoDetai);
             return true;
         }
         return false;

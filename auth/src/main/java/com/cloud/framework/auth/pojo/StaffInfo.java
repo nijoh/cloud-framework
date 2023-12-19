@@ -2,6 +2,7 @@ package com.cloud.framework.auth.pojo;
 
 import com.cloud.framework.model.common.base.CreateTime;
 import com.cloud.framework.model.common.base.UpdateTime;
+import com.cloud.framework.model.common.enums.GenderEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,8 +49,9 @@ public class StaffInfo implements Serializable {
 
     /**
      * 员工性别
+     * @see GenderEnum
      */
-    private Character gender;
+    private String gender;
 
     /**
      * 创建时间
@@ -66,5 +68,10 @@ public class StaffInfo implements Serializable {
     /**
      * 操作人
      */
-    private String operate;
+    private String operator;
+
+    /**
+     * 系统域名
+     */
+    private String msDomain;
 }

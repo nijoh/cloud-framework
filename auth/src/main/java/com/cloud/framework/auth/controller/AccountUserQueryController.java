@@ -1,18 +1,18 @@
 package com.cloud.framework.auth.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.cloud.framework.auth.pojo.request.QueryUserReuqest;
 import com.cloud.framework.auth.service.AccountUserQueryService;
-import com.cloud.framework.model.auth.result.AccountUserDTO;
+import com.cloud.framework.model.auth.result.UserInfoDetailDTO;
+import com.cloud.framework.model.auth.result.UserInfoListQueryDTO;
 import com.cloud.framework.model.common.base.ApiProcessor;
 import com.cloud.framework.model.common.base.BusinessTemplate;
 import com.cloud.framework.model.common.result.BaseResult;
+import com.cloud.framework.utils.AssertUtil;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * 账户信息查询
@@ -32,8 +32,8 @@ public class AccountUserQueryController {
      * @return
      */
     @PostMapping("/queryPage")
-    public BaseResult<PageInfo<AccountUserDTO>> queryUserPage(@RequestBody QueryUserReuqest queryUserReuqest){
-        BaseResult<PageInfo<AccountUserDTO>> result =new BaseResult<>();
+    public BaseResult<PageInfo<UserInfoListQueryDTO>> queryUserPage(@RequestBody QueryUserReuqest queryUserReuqest){
+        BaseResult<PageInfo<UserInfoListQueryDTO>> result =new BaseResult<>();
         ApiProcessor.processor(result, new BusinessTemplate() {
             @Override
             public void processor() {
@@ -43,6 +43,28 @@ public class AccountUserQueryController {
         return result;
     }
 
+    /**
+     * 查询员工详细信息
+     * @param staffId 员工ID
+     * @return
+     */
+    @GetMapping("/queryDetail")
+    public BaseResult<UserInfoDetailDTO> queryUserInfoDetail(Integer staffId){
+        BaseResult<UserInfoDetailDTO> result =new BaseResult<>();
+        ApiProcessor.processor(result, new BusinessTemplate() {
+
+            @Override
+            public void checkParam() {
+                AssertUtil.isTrue(Objects.nonNull(staffId),"未选择查询员工数据");
+            }
+
+            @Override
+            public void processor() {
+                result.setContent(accountUserQueryService.queryUserInfoDetail(staffId));
+            }
+        });
+        return result;
+    }
 
 
 

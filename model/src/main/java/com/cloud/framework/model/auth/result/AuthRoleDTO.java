@@ -44,4 +44,9 @@ public class AuthRoleDTO implements Serializable {
     private String status;
 
 
+    /**
+     * 角色ID
+     * */
+    private Integer roleId;
+
 }

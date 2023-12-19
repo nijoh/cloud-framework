@@ -1,5 +1,6 @@
 package com.cloud.framework.auth.service;
 
+import com.cloud.framework.auth.pojo.request.AuthorizeRoleRequest;
 import com.cloud.framework.auth.pojo.request.DeleteUserRequest;
 import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 
@@ -15,5 +16,15 @@ public interface AccountUserMangeService {
      */
     void saveAccountUser(RegistAccountUserRequest request);
 
+    /**
+     * 删除账户信息
+     * @param request
+     */
     void deleteAccountUser(DeleteUserRequest request);
+
+    /**
+     * 授权员工角色
+     * @param request
+     */
+    void authorizeRole(AuthorizeRoleRequest request);
 }
