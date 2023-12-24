@@ -1,13 +1,11 @@
 package com.cloud.framework.auth.pojo.request;
 
-import java.util.List;
-
-import javax.validation.constraints.NotEmpty;
-
 import com.cloud.framework.model.common.base.BaseRequest;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * @author nijo_h

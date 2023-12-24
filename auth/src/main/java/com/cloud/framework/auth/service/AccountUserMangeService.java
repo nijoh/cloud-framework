@@ -1,8 +1,6 @@
 package com.cloud.framework.auth.service;
 
-import com.cloud.framework.auth.pojo.request.AuthorizeRoleRequest;
-import com.cloud.framework.auth.pojo.request.DeleteUserRequest;
-import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
+import com.cloud.framework.auth.pojo.request.*;
 
 
 /**
@@ -27,4 +25,17 @@ public interface AccountUserMangeService {
      * @param request
      */
     void authorizeRole(AuthorizeRoleRequest request);
+
+
+    /**
+     * 修改员工信息
+     * @param request
+     */
+    void modifyStaffInfo(StaffInfoModifyRequest request);
+
+    /**
+     * 冻结用户
+     * @param request
+     */
+    void freezeStaff(FreezeStaffRequest request);
 }

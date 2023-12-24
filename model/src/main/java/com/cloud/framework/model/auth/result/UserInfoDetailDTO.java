@@ -79,4 +79,9 @@ public class UserInfoDetailDTO implements Serializable {
      * 角色名称
      * */
     private String roleName;
+
+    /**
+     * 系统所属
+     */
+    private String msDomain;
 }

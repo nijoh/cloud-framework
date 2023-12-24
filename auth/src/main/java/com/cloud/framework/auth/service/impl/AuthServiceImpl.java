@@ -11,10 +11,9 @@ import com.cloud.framework.auth.pojo.request.RegistAccountUserRequest;
 import com.cloud.framework.auth.service.AbstractBaseService;
 import com.cloud.framework.auth.service.AuthService;
 import com.cloud.framework.auth.utils.TransactionProcessor;
-import com.cloud.framework.auth.utils.convert.AccountUserConvert;
 import com.cloud.framework.integrate.auth.TokenUtil;
-import com.cloud.framework.model.auth.result.AccountUserDTO;
 import com.cloud.framework.model.auth.result.LoginResultDTO;
+import com.cloud.framework.model.auth.result.UserInfoDetailDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.utils.AssertUtil;
 import com.cloud.framework.utils.PasswordEncrypt;
@@ -45,6 +44,7 @@ public class AuthServiceImpl extends AbstractBaseService implements AuthService 
     private StaffInfoMapper staffInfoMapper;
 
 
+
     /**
      * @see com.cloud.framework.auth.service.AuthService#login(LoginUserRequest request)
      */
@@ -59,7 +59,7 @@ public class AuthServiceImpl extends AbstractBaseService implements AuthService 
         //放入Security上下文
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         //账户信息
-        AccountUserDTO accountUserDTO =AccountUserConvert.converToDTOModel((AccountUser) authenticate.getPrincipal());
+        UserInfoDetailDTO accountUserDTO =(UserInfoDetailDTO) authenticate.getPrincipal();
         //生成Token
         String jwtToken = TokenUtil.createJWT(JSON.toJSONString(accountUserDTO), TokenUtil.getExpirationTime());
         BeanUtils.copyProperties(accountUserDTO,result);
@@ -77,9 +77,8 @@ public class AuthServiceImpl extends AbstractBaseService implements AuthService 
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
-            public AuthOperateContent saveOrder() {
+            public void saveOrder(AuthOperateContent content) {
                 operateOrderService.createOperateOrder(request.getBizNo(),ACCOUNT_USER_CREATE);
-                return new AuthOperateContent();
             }
 
             @Override

@@ -49,18 +49,18 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
-            public void checkBiz() {
+            public AuthOperateContent checkBiz() {
                 if (request.getParentId() != 0) {
                     AuthMsMenu parentMenu = menuMapper.selectByPrimaryKey(request.getParentId());
                     AssertUtil.notNull(parentMenu, "未查询到父级菜单信息");
                     AssertUtil.equals(parentMenu.getStatus(), BaseStatusEnum.NORMAL.getCode(), "父级状态异常");
                 }
+                return new AuthOperateContent();
             }
 
             @Override
-            public AuthOperateContent saveOrder() {
+            public void saveOrder(AuthOperateContent content) {
                 operateOrderService.createOperateOrder(request.getBizNo(),AUTH_MENU_CREATE);
-                return new AuthOperateContent();
             }
 
             @Override
@@ -81,18 +81,18 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
-            public void checkBiz() {
+            public AuthOperateContent checkBiz() {
                 if (request.getParentId() != 0) {
                     AuthMsMenu parentMenu = menuMapper.selectByPrimaryKey(request.getParentId());
                     AssertUtil.notNull(parentMenu, "未查询到父级菜单信息");
                     AssertUtil.equals(parentMenu.getStatus(), BaseStatusEnum.NORMAL.getCode(), "父级状态异常");
                 }
+                return new AuthOperateContent();
             }
 
             @Override
-            public AuthOperateContent saveOrder() {
+            public void saveOrder(AuthOperateContent content) {
                 operateOrderService.createOperateOrder(request.getBizNo(),AUTH_MENU_MODIFY);
-                return new AuthOperateContent();
             }
 
             @Override
@@ -112,7 +112,7 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
-            public void checkBiz() {
+            public AuthOperateContent checkBiz() {
                 List<AuthMsMenu> authMsMenus = menuQueryService.queryMenuListByMenusIds(request.getMenuId());
                 AssertUtil.notEmpty(authMsMenus,"未查询到相关的菜单数据");
                 //一级类目
@@ -124,12 +124,12 @@ public class AuthMenuServiceImpl extends AbstractBaseService implements AuthMenu
                         AssertUtil.isFalse(checkResult,"当前菜单有子菜单使用");
                     }).close();
                 }
+                return new AuthOperateContent();
             }
 
             @Override
-            public AuthOperateContent saveOrder() {
+            public void saveOrder(AuthOperateContent content) {
                 operateOrderService.createOperateOrder(request.getBizNo(),AUTH_MENU_DELETE);
-                return new AuthOperateContent();
             }
 
             @Override

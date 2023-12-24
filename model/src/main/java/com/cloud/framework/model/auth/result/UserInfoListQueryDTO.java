@@ -49,4 +49,14 @@ public class UserInfoListQueryDTO implements Serializable {
      * 最后一次登陆时间
      */
     private LocalDateTime lastLoginTime;
+
+    /**
+     * 角色
+     */
+    private String roleName;
+
+    /**
+     * 账户ID
+     */
+    private String accountId;
 }

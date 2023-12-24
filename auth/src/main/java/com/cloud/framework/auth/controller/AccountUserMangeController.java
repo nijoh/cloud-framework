@@ -1,6 +1,8 @@
 package com.cloud.framework.auth.controller;
 
 import com.cloud.framework.auth.pojo.request.AuthorizeRoleRequest;
+import com.cloud.framework.auth.pojo.request.FreezeStaffRequest;
+import com.cloud.framework.auth.pojo.request.StaffInfoModifyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +58,40 @@ public class AccountUserMangeController {
             @Override
             public void processor() {
                 accountUserMangeService.authorizeRole(request);
+            }
+        });
+        return result;
+    }
+
+    /**
+     * 修改员工信息
+     *
+     * @param request
+     */
+    @PostMapping("/modifyStaff")
+    public BaseResult modifyStaffInfo(@RequestBody @Validated StaffInfoModifyRequest request) {
+        BaseResult result = new BaseResult<>();
+        ApiProcessor.processor(result, new BusinessTemplate() {
+            @Override
+            public void processor() {
+                accountUserMangeService.modifyStaffInfo(request);
+            }
+        });
+        return result;
+    }
+
+    /**
+     * 冻结用户
+     *
+     * @param request
+     */
+    @PostMapping("/freezeStaff")
+    public BaseResult freezeStaff(@RequestBody @Validated FreezeStaffRequest request) {
+        BaseResult result = new BaseResult<>();
+        ApiProcessor.processor(result, new BusinessTemplate() {
+            @Override
+            public void processor() {
+                accountUserMangeService.freezeStaff(request);
             }
         });
         return result;

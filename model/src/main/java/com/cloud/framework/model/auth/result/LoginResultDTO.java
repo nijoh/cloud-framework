@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class LoginResultDTO extends AccountUserDTO {
+public class LoginResultDTO extends UserInfoDetailDTO {
     /**
      * serialVersionUID
      * */

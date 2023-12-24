@@ -59,7 +59,6 @@ public class AccountUser implements Serializable {
     /**
      * 最后一次登陆时间
      */
-    @UpdateTime
     private LocalDateTime lastLoginTime;
 
     /**

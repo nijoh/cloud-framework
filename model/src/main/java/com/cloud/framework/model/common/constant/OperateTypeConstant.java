@@ -34,5 +34,10 @@ public class OperateTypeConstant {
     //授权员工角色
     public static String AUTH_AUTHORIZE_ROLE = "AuthAuthorizeRole";
 
+    //员工信息修改
+    public static String STAFF_INFO_MODIFY = "StaffInfoModify";
+
+    //冻结用户
+    public static String ACCOUNT_FREEZE_STAFF = "AccountFreezeStaff";
 
 }

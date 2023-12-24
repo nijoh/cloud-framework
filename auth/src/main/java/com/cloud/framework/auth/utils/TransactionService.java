@@ -20,9 +20,9 @@ public class TransactionService {
         AtomicReference<T> model = new AtomicReference<>();
         try {
             transactionTemplate.execute(status -> {
-                transactionProcessor.checkBiz();
+                model.set(transactionProcessor.checkBiz());
                 //枷锁-记录操作流水
-                model.set(transactionProcessor.saveOrder());
+                transactionProcessor.saveOrder(model.get());
                 //组装数据
                 transactionProcessor.assembly(model.get());
                 //处理数据

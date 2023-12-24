@@ -6,10 +6,10 @@ package com.cloud.framework.auth.utils;
 public interface TransactionProcessor<T>{
 
     //前置检查
-    default void checkBiz(){};
+    default T checkBiz(){return null;};
 
     //加锁-落操作流水
-    default T saveOrder(){return null;}
+    default void saveOrder(T t){}
 
     //组装参数
     default void assembly(T t){};

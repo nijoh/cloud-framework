@@ -4,6 +4,7 @@ import com.cloud.framework.auth.pojo.AccountUser;
 import com.cloud.framework.auth.service.AccountUserMangeService;
 import com.cloud.framework.auth.service.AccountUserQueryService;
 import com.cloud.framework.integrate.cache.RedisCacheTemplate;
+import com.cloud.framework.model.auth.result.UserInfoDetailDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.utils.AssertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,10 @@ public class CloudAuthenticationProvider implements AuthenticationProvider {
         //比对密码
         boolean loginResult = passwordEncoder.matches(password, user.getPassword());
         if (loginResult) {
-            return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+            UserInfoDetailDTO accountUserDTO = accountUserQueryService.queryUserInfoDetail(user.getEmail());
+            return new UsernamePasswordAuthenticationToken(accountUserDTO, null, Collections.emptyList());
         }
+
         throw new AuthenticationException("认证失败") {
         };
     }

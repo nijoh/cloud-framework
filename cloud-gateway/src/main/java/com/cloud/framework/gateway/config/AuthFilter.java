@@ -3,7 +3,7 @@ package com.cloud.framework.gateway.config;
 import com.alibaba.fastjson.JSON;
 import com.cloud.framework.gateway.data.WhitelistPath;
 import com.cloud.framework.integrate.auth.TokenUtil;
-import com.cloud.framework.model.auth.result.AccountUserDTO;
+import com.cloud.framework.model.auth.result.UserInfoDetailDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
 import com.cloud.framework.model.common.enums.HttpEnum;
 import com.cloud.framework.model.common.result.BaseResult;
@@ -57,7 +57,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
             String authorizationToken = requestHeaderTokenList.stream().findFirst().orElse("");
             Claims claims = TokenUtil.parseJWT(authorizationToken);
             //账户信息
-            AccountUserDTO accountUserDTO = JSON.parseObject(claims.getSubject(), AccountUserDTO.class);
+            UserInfoDetailDTO accountUserDTO = JSON.parseObject(claims.getSubject(), UserInfoDetailDTO.class);
             //当前用户必须和所属域一致
             List<String> requestList = exchange.getRequest().getHeaders().get(CloudConstant.REQUEST_HEADER_DOMAIN);
             AssertUtil.equals(accountUserDTO.getMsDomain(),requestList.get(0),"请求用户非法");

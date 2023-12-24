@@ -8,6 +8,8 @@
         <result column="status" property="status"/>
         <result column="create_time" property="createTime" />
         <result column="last_login_time" property="lastLoginTime" />
+        <result column="role_name" property="roleName" />
+        <result column="account_id" property="accountId"/>
     </resultMap>
 
     <resultMap id="queryDetailMap" type="com.cloud.framework.model.auth.result.UserInfoDetailDTO">
@@ -22,6 +24,7 @@
         <result column="staff_image" property="staffImage" />
         <result column="gender" property="gender" />
         <result column="role_name" property="roleName" />
+        <result column="ms_domain" property="msDomain"/>
     </resultMap>
 
 
@@ -34,19 +37,21 @@
 
     <select id="queryPage" parameterType="com.cloud.framework.auth.pojo.request.QueryUserReuqest" resultMap="queryPageMap">
         SELECT
-        si.id
+        si.id,
         si.name ,
         si.nickname,
+        si.role_name,
         au.status,
         au.create_time,
-        au.last_login_time
+        au.last_login_time,
+        au.id as account_id
         FROM
         account_user au
         JOIN
         staff_info si ON au.id = si.uid
         <where>
             <if test="staffName !=null and staffName != ''">
-                si.name = #{staffName}
+                si.name like concat('%',#{staffName},'%')
             </if>
             <if test="status !=null and status != ''">
                 si.name = #{status}
@@ -87,7 +92,8 @@
         au.create_time,
         au.last_login_time,
         au.email,
-        au.phone
+        au.phone,
+        au.ms_domain
         FROM
         account_user au
         JOIN

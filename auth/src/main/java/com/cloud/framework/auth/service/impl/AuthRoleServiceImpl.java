@@ -49,9 +49,8 @@ public class AuthRoleServiceImpl extends AbstractBaseService implements AuthRole
         AuthRole authRole = converAuthRole(request);
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
             @Override
-            public AuthOperateContent saveOrder() {
+            public void saveOrder(AuthOperateContent content) {
                 operateOrderService.createOperateOrder(request.getBizNo(),AUTH_ROLE_CREATE);
-                return new AuthOperateContent();
             }
 
             @Override
@@ -72,15 +71,15 @@ public class AuthRoleServiceImpl extends AbstractBaseService implements AuthRole
         AuthRole saveAuthRole = converAuthRole(request);
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
             @Override
-            public void checkBiz() {
+            public AuthOperateContent checkBiz() {
                 AuthRole authRole = roleMapper.selectByPrimaryKey(request.getRoleId());
                 AssertUtil.notNull(authRole, "未获取到相关角色");
+                return new AuthOperateContent();
             }
 
             @Override
-            public AuthOperateContent saveOrder() {
+            public void saveOrder(AuthOperateContent content) {
                 operateOrderService.createOperateOrder(request.getBizNo(),AUTH_ROLE_MODIFY);
-                return new AuthOperateContent();
             }
 
             @Override
@@ -99,17 +98,17 @@ public class AuthRoleServiceImpl extends AbstractBaseService implements AuthRole
     public void deleteRole(AuthRoleDeleteRequest request) {
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
             @Override
-            public void checkBiz() {
+            public AuthOperateContent checkBiz() {
                 AuthRole authRole = roleMapper.selectByPrimaryKey(request.getRoleId());
                 AssertUtil.notNull(authRole, "未获取到相关角色");
                 boolean roleUsedResult = roleStaffService.checkRoleUsed(request.getRoleId());
                 AssertUtil.isFalse(roleUsedResult, "当前有用户关联此角色,解除绑定后方可删除");
+                return new AuthOperateContent();
             }
 
             @Override
-            public AuthOperateContent saveOrder() {
+            public void saveOrder(AuthOperateContent content) {
                 operateOrderService.createOperateOrder(request.getBizNo(),AUTH_ROLE_DELETE);
-                return new AuthOperateContent();
             }
 
             @Override
@@ -128,9 +127,8 @@ public class AuthRoleServiceImpl extends AbstractBaseService implements AuthRole
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
 
             @Override
-            public AuthOperateContent saveOrder() {
+            public void saveOrder(AuthOperateContent content) {
                 operateOrderService.createOperateOrder(request.getBizNo(),AUTH_ROLE_MENU_CREATE);
-                return new AuthOperateContent();
             }
 
             @Override

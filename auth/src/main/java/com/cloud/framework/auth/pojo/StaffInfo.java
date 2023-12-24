@@ -74,4 +74,9 @@ public class StaffInfo implements Serializable {
      * 系统域名
      */
     private String msDomain;
+
+    /**
+     * 角色 冗余字段
+     */
+    private String roleName;
 }

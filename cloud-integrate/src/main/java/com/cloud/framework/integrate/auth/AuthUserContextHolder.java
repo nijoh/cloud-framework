@@ -3,8 +3,11 @@ package com.cloud.framework.integrate.auth;
 import com.cloud.framework.model.auth.result.AuthMsDTO;
 import com.cloud.framework.model.auth.result.UserInfoDetailDTO;
 import com.cloud.framework.model.common.constant.CloudConstant;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
+
+import static com.cloud.framework.model.common.constant.CloudConstant.SUPER_ADMINISTRATOR_ROLE_NAME;
 
 /**
  * 获取当前登录用户信息
@@ -35,6 +38,10 @@ public class AuthUserContextHolder {
      */
     public static UserInfoDetailDTO getCurrentUser() {
         return threadLocal.get();
+    }
+
+    public static boolean isSuperAdministrator(){
+        return StringUtils.equals(getCurrentUser().getRoleName(),SUPER_ADMINISTRATOR_ROLE_NAME);
     }
 
     /**
