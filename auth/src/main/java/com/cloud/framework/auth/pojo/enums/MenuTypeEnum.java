@@ -6,8 +6,19 @@ import com.cloud.framework.model.common.base.CodeEnum;
  * 菜单类型枚举
  */
 public enum MenuTypeEnum implements CodeEnum {
-    MENU_NAVIGATION("navigation","菜单导航"),
-    MENU_RESOURCE("resource","菜单资源");
+    /**
+     * 目录
+     */
+    DIRECTORY("DIRECTORY", "目录"),
+    /**
+     * 菜单
+     */
+    MENU("MENU", "菜单"),
+
+    /**
+     * 按钮
+     */
+    BUTTON("BUTTON", "按钮");
 
     MenuTypeEnum(String code, String desc) {
         this.code = code;

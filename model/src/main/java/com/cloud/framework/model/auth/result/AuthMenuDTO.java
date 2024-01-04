@@ -52,4 +52,9 @@ public class AuthMenuDTO implements Serializable {
      * 菜单类型
      */
     private String menuType;
+
+    /**
+     * 菜单状态
+     */
+    private String status;
 }

@@ -18,9 +18,14 @@ public class QueryUserReuqest extends BasePage {
     private String staffName;
 
     /**
-     * 创建时间
+     * 创建开始时间
      * */
-    private String createTime;
+    private String startTime;
+
+    /**
+     * 创建结束时间
+     * */
+    private String endTime;
 
     /**
      * 账户状态

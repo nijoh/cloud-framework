@@ -51,10 +51,16 @@
         staff_info si ON au.id = si.uid
         <where>
             <if test="staffName !=null and staffName != ''">
-                si.name like concat('%',#{staffName},'%')
+                 si.name like concat('%',#{staffName},'%')
             </if>
             <if test="status !=null and status != ''">
-                si.name = #{status}
+               and au.status = #{status}
+            </if>
+            <if test="startTime !=null and startTime != ''">
+               and au.create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime !=null and endTime != ''">
+              and  au.create_time &lt;= #{endTime}
             </if>
         </where>
     </select>

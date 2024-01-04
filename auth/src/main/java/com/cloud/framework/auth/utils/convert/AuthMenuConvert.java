@@ -57,6 +57,7 @@ public class AuthMenuConvert {
         authMenuTreeDTO.setMenuUrl(authMsMenu.getMenuUrl());
         authMenuTreeDTO.setMenuCode(authMsMenu.getMenuCode());
         authMenuTreeDTO.setMenuType(authMsMenu.getMenuType());
+        authMenuTreeDTO.setStatus(authMsMenu.getStatus());
         return authMenuTreeDTO;
     }
 }
