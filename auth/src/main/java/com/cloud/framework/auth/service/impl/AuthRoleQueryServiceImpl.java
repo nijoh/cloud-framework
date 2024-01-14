@@ -63,6 +63,9 @@ public class AuthRoleQueryServiceImpl implements AuthRoleQueryService {
         if (StringUtils.isNotBlank(request.getStatus())) {
             weekendSqls.andEqualTo(AuthRole::getStatus, request.getStatus());
         }
+        if (StringUtils.isNotBlank(request.getRoleCode())){
+            weekendSqls.andEqualTo(AuthRole::getRoleCode, request.getRoleCode());
+        }
         return Example.builder(AuthRole.class).where(weekendSqls).build();
     }
 }

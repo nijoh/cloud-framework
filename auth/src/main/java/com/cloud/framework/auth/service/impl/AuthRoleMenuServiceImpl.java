@@ -47,6 +47,9 @@ public class AuthRoleMenuServiceImpl extends AbstractBaseService implements Auth
             @Override
             public void processor(AuthOperateContent content) {
                 List<AuthRoleMenu> authRoleMenus = buildDoList(roleId, menuIds);
+                //先删除
+                roleMenuMapper.deleteByExample(deleteRoleMenuByRoleIdExample(roleId));
+                //再创建
                 roleMenuMapper.createRoleMenu(authRoleMenus);
             }
         });

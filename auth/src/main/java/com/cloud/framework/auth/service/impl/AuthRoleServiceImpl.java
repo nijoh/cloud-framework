@@ -45,7 +45,7 @@ public class AuthRoleServiceImpl extends AbstractBaseService implements AuthRole
      * @see AuthRoleService#addRole(AuthRoleCreateRequest)
      */
     @Override
-    public void addRole(AuthRoleCreateRequest request) {
+    public AuthRole addRole(AuthRoleCreateRequest request) {
         AuthRole authRole = converAuthRole(request);
         transactionService.processor(new TransactionProcessor<AuthOperateContent>() {
             @Override
@@ -57,9 +57,9 @@ public class AuthRoleServiceImpl extends AbstractBaseService implements AuthRole
             public void processor(AuthOperateContent content) {
                 int result = roleMapper.insertSelective(authRole);
                 AssertUtil.isTrue(result > 0, CloudConstant.DB_INSERT_ERROR);
-
             }
         });
+        return authRole;
     }
 
     /**
@@ -113,6 +113,8 @@ public class AuthRoleServiceImpl extends AbstractBaseService implements AuthRole
 
             @Override
             public void processor(AuthOperateContent content) {
+                //删除已授权
+                roleMenuService.deleteRoleMenuByRoleId(request.getRoleId());
                 int result = roleMapper.deleteByPrimaryKey(request.getRoleId());
                 AssertUtil.isTrue(result > 0, CloudConstant.DB_DELETE_ERROR);
             }
@@ -153,6 +155,7 @@ public class AuthRoleServiceImpl extends AbstractBaseService implements AuthRole
         authRole.setRoleName(request.getRoleName());
         authRole.setRoleDesc(request.getRoleDesc());
         authRole.setStatus(request.getStatus());
+        authRole.setRoleCode(request.getRoleCode());
         return authRole;
     }
 }

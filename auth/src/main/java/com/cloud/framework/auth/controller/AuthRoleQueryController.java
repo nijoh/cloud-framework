@@ -1,6 +1,7 @@
 package com.cloud.framework.auth.controller;
 
 import com.alibaba.cloud.commons.lang.StringUtils;
+import com.cloud.framework.auth.pojo.request.QueryAuthorizeRequest;
 import com.cloud.framework.auth.pojo.request.RoleQueryRequest;
 import com.cloud.framework.auth.service.AuthRoleQueryService;
 import com.cloud.framework.model.auth.result.AuthMenuDTO;
@@ -11,10 +12,13 @@ import com.cloud.framework.model.common.enums.BaseStatusEnum;
 import com.cloud.framework.model.common.result.BaseResult;
 import com.cloud.framework.utils.AssertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/roles")
@@ -50,21 +54,17 @@ public class AuthRoleQueryController {
     /**
      * 查询系统角色
      *
-     * @param roleId
+     * @param request
      * @return
      */
-    @GetMapping("/queryAuthorize")
-    public BaseResult<List<AuthMenuDTO>> queryAuthorize(Integer roleId) {
+    @PostMapping("/queryAuthorize")
+    public BaseResult<List<AuthMenuDTO>> queryAuthorize(@RequestBody @Validated QueryAuthorizeRequest request) {
         BaseResult baseResult = new BaseResult();
         ApiProcessor.processor(baseResult, new BusinessTemplate() {
-            @Override
-            public void checkParam() {
-                AssertUtil.isTrue(Objects.nonNull(roleId), "未选择角色");
-            }
 
             @Override
             public void processor() {
-                baseResult.setContent(roleQueryService.queryAuthorize(roleId));
+                baseResult.setContent(roleQueryService.queryAuthorize(request.getRoleId()));
             }
         });
         return baseResult;

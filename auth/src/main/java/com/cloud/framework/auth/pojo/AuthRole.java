@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -28,7 +29,7 @@ public class AuthRole implements Serializable {
      * 自增id
      */
     @Id
-    @GeneratedValue(generator = "JDBC")
+    @GeneratedValue(generator = "JDBC",strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -70,4 +71,9 @@ public class AuthRole implements Serializable {
      * 系统域名
      */
     private String msDomain;
+
+    /**
+     * 角色码 （鉴权使用）
+     */
+    private String roleCode;
 }

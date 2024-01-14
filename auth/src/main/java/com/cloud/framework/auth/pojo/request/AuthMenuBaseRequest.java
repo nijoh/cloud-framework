@@ -57,4 +57,10 @@ public class AuthMenuBaseRequest extends BaseRequest{
      * */
     @NotBlank(message = "菜单标识码不能为空")
     private String menuCode;
+
+    /**
+     * 授权码（鉴权）
+     */
+    @NotBlank(message = "授权码不能为空")
+    private String authorizeCode;
 }

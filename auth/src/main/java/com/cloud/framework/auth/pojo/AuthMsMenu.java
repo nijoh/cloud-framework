@@ -18,9 +18,8 @@ import java.time.LocalDateTime;
 
 /**
  * 系统菜单表
- *
  */
-@Table(name ="auth_ms_menu")
+@Table(name = "auth_ms_menu")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -77,18 +76,25 @@ public class AuthMsMenu implements Serializable {
 
     /**
      * 状态 1:启用, 0:关闭, -1:删除标识
+     *
      * @see BaseStatusEnum
      */
     private String status;
 
     /**
      * 菜单码
-     * */
+     */
     private String menuCode;
 
     /**
      * 菜单类型
+     *
      * @see MenuTypeEnum
      */
     private String menuType;
+
+    /**
+     * 授权码（鉴权）
+     */
+    private String authorizeCode;
 }

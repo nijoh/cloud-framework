@@ -27,6 +27,7 @@ public class AuthMenuConvert {
         authMenuDTO.setMenuUrl(authMsMenu.getMenuUrl());
         authMenuDTO.setMenuCode(authMsMenu.getMenuCode());
         authMenuDTO.setMenuType(authMsMenu.getMenuType());
+        authMenuDTO.setAuthorizeCode(authMenuDTO.getAuthorizeCode());
         return authMenuDTO;
     }
 
@@ -58,6 +59,7 @@ public class AuthMenuConvert {
         authMenuTreeDTO.setMenuCode(authMsMenu.getMenuCode());
         authMenuTreeDTO.setMenuType(authMsMenu.getMenuType());
         authMenuTreeDTO.setStatus(authMsMenu.getStatus());
+        authMenuTreeDTO.setAuthorizeCode(authMsMenu.getAuthorizeCode());
         return authMenuTreeDTO;
     }
 }

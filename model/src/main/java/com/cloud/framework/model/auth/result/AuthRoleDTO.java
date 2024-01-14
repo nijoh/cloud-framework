@@ -49,4 +49,9 @@ public class AuthRoleDTO implements Serializable {
      * */
     private Integer roleId;
 
+    /**
+     * 角色码 （鉴权使用）
+     */
+    private String roleCode;
+
 }

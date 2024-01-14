@@ -1,10 +1,12 @@
 package com.cloud.framework.auth.controller;
 
+import com.cloud.framework.auth.pojo.AuthRole;
 import com.cloud.framework.auth.pojo.request.AuthRoleCreateRequest;
 import com.cloud.framework.auth.pojo.request.AuthRoleDeleteRequest;
 import com.cloud.framework.auth.pojo.request.AuthRoleModifyRequest;
 import com.cloud.framework.auth.pojo.request.AuthorizeMenusRequest;
 import com.cloud.framework.auth.service.AuthRoleService;
+import com.cloud.framework.model.auth.result.AddRoleDTO;
 import com.cloud.framework.model.common.base.ApiProcessor;
 import com.cloud.framework.model.common.base.BusinessTemplate;
 import com.cloud.framework.model.common.enums.BaseStatusEnum;
@@ -34,8 +36,9 @@ public class AuthRoleMangeController {
      * @return
      */
     @PostMapping("/add")
-    public BaseResult addRole(@RequestBody @Validated AuthRoleCreateRequest request) {
-        BaseResult baseResult = new BaseResult();
+    public BaseResult<AddRoleDTO> addRole(@RequestBody @Validated AuthRoleCreateRequest request) {
+        BaseResult<AddRoleDTO> baseResult = new BaseResult();
+        AddRoleDTO addRoleDTO=new AddRoleDTO();
         ApiProcessor.processor(baseResult, new BusinessTemplate() {
             @Override
             public void checkParam() {
@@ -44,7 +47,9 @@ public class AuthRoleMangeController {
 
             @Override
             public void processor() {
-                authRoleService.addRole(request);
+                AuthRole authRole = authRoleService.addRole(request);
+                addRoleDTO.setRoleId(authRole.getId());
+                baseResult.setContent(addRoleDTO);
             }
         });
         return baseResult;

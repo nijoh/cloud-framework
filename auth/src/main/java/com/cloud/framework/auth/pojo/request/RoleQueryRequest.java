@@ -21,4 +21,9 @@ public class RoleQueryRequest implements Serializable {
      * @see BaseStatusEnum
      */
     String status;
+
+    /**
+     * 角色权限码
+     */
+    String roleCode;
 }

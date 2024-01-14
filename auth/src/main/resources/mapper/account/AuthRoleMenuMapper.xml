@@ -3,8 +3,8 @@
 <mapper namespace="com.cloud.framework.auth.dal.AuthRoleMenuMapper">
     <insert id="createRoleMenu" parameterType="java.util.List">
         INSERT INTO auth_role_menu (menu_id,role_id,create_time,operator,status,ms_domain ) VALUES
-        <foreach collection="authRoleMenuList" item="item" separator="," open="(" close=")">
-            #{item.menuId},#{item.roleId},#{item.createTime},#{item.operator},#{item.status},#{item.msDomain}
+        <foreach collection="authRoleMenuList" item="item" separator=",">
+            (#{item.menuId},#{item.roleId},#{item.createTime},#{item.operator},#{item.status},#{item.msDomain})
         </foreach>
     </insert>
 
@@ -15,7 +15,7 @@
         FROM
         auth_role_menu arm
         JOIN
-        auth_ms_menu amm ON arm.role_id = amm.id
+        auth_ms_menu amm ON arm.menu_id = amm.id
         WHERE
         arm.role_id = #{roleId}
     </select>

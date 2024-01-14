@@ -36,4 +36,10 @@ public class AuthRoleBaseRequest extends BaseRequest {
     @NotBlank(message = "角色状态不能为空")
     private String status;
 
+    /**
+     * 角色码 （鉴权使用）
+     */
+    @NotBlank(message = "角色码不能为空")
+    private String roleCode;
+
 }
